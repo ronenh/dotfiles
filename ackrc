@@ -1,0 +1,13 @@
+--ignore-dir=.build
+--ignore-dir=third_party
+--ignore-dir=node_modules
+--type-add
+cpp=.cppml,.hppml
+--type-set
+coffee=.coffee
+--type-set
+fora=.fora
+--type-add
+html=.jade
+--type-add
+css=.styl

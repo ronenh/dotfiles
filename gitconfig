@@ -1,0 +1,72 @@
+[user]
+	name = Ronen Hilewicz
+	email = ronen@ufora.com
+
+[color]
+	status = auto
+	diff = auto
+	branch = auto
+	interactive = auto
+	ui = always 
+
+[core]
+	whitespace = trailing-space,space-before-tab
+	autocrlf = input
+	excludesfile = ~/.gitignore
+	editor = vim
+
+[diff]
+	renames = copies
+	mnemonicprefix = true
+	renameLimit = 10000
+
+[alias]
+	br = branch
+	ci = commit
+	co = checkout
+	di = diff
+
+	list-remotes = !bash -c 'git branch -r | grep -o \"\\S*/${1:-master}$\" | sort | uniq' -
+	oldest-ancestor = !bash -c '(diff -u <(git rev-list --first-parent \"${1:-master}\") <(git rev-list --first-parent \"${2:-HEAD}\") && echo \" HEAD\") | sed -ne \"s/^ //p\" | head -1' -
+	l = !bash -c 'git log --oneline --decorate --graph master `git list-remotes master` ${1:-HEAD} ^`git oldest-ancestor ${1:-HEAD} origin/master`~3' -
+
+	r = rebase
+	ri = rebase -i
+	rc = rebase --continue
+	rs = rebase ---skip
+	cp = cherry-pick
+
+	sm = submodule
+	st = status -s -b
+
+	ru = remote update
+
+	timeline = log --graph --branches --pretty=oneline --decorate
+
+	fixup = !sh -c 'git commit -m \"fixup! $(git log -1 --format=%s $@)\"' -
+	squash = !sh -c 'git commit -m \"squash! $(git log -1 --format=%s $@)\"' -
+
+	ignored-files = ls-files --others -i --exclude-standard
+	modified-files = ls-files -m
+	untracked-files = ls-files -o --exclude-standard
+
+	unstaged = !sh -c 'git l `git for-each-ref refs/heads --format=%\\(refname\\)` ^staging'
+
+[push]
+	default = current
+
+[mergetool "fugitive"]
+	cmd = vim -f -c "Gdiff" "$MERGED"
+
+[merge]
+	tool = fugitive
+
+				
+[rebase]
+	autosquash = true
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
+[mergetool "sourcetree"]
+	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
