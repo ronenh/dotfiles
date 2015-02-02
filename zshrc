@@ -351,13 +351,7 @@ source $ZSH/oh-my-zsh.sh
 # vi-mode
 bindkey -v
 
-if [ -f $HOME/.nvm/nvm.sh ]
-then
-    . $HOME/.nvm/nvm.sh
-    nvm use 0.10.28
-fi
 
-alias wafconfig_clang="CXX=clang++ CC=clang ./waf configure --cxx-warnings='-w -Wreturn-type -Winit-self' --cxx-compile-flags='-pthread -fPIC -std=c++11 -DBOOST_REGEX_RECURSIVE' "
 function looper_rev() {
     format-looper-data.py --revisionId `git rev-parse $1`;
 }
@@ -404,3 +398,9 @@ ZSH_THEME_GIT_PROMPT_PREFIX="git:(%{$fg[red]%}"
 ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%}"
 ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[blue]%}) %{$fg[yellow]%}✗%{$reset_color%}"
 ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg[blue]%})"
+
+if [ -f $HOME/.nvm/nvm.sh ]
+then
+    . $HOME/.nvm/nvm.sh
+    nvm use v0.10.28
+fi
