@@ -371,8 +371,6 @@ if [[ `uname -s` == 'Darwin' ]]; then
     export PATH="$BASE_PATH:/Users/ronenh/repo/src/ufora/scripts"
     export PKG_CONFIG_PATH="/System/Library/Frameworks/Python.framework/Versions/2.7/lib/pkgconfig"
     export ARCHFLAGS="-arch x86_64"
-    alias wafconfig='CXX=clang++ CC=clang ./waf configure --cxx-extra-compile-flags="-std=c++11 -stdlib=libc++" --cxx-link-flags="-stdlib=libc++"'
-    alias vim=/Applications/MacVim.app/Contents/MacOS/vim
 else
     #export LD_PRELOAD='/usr/local/lib/libtcmalloc.so'
     export BASE_PYTHONPATH=""
@@ -383,7 +381,6 @@ else
     alias tmux="/home/ronenh/local/tmux-1.8/tmux -CC $*"
     alias pbcopy='xclip -selection clipboard'
     alias pbpaste='xclip -selection clipboard -o'
-    alias docker_mount='sudo docker run -v /home/ronenh/volumes/repo:/volumes/repo:rw -v /home/ronenh/volumes/packages:/volumes/packages:rw -v /home/ronenh/volumes/scripts:/volumes/scripts:rw -name DATA_VOLUMES ubuntu bash'
     docker_run() { sudo docker run -t -i "$*" /bin/bash }
 fi
 
