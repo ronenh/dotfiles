@@ -1,6 +1,7 @@
 --ignore-dir=.build
 --ignore-dir=third_party
 --ignore-dir=node_modules
+--ignore-dir=.ropeproject
 --type-add
 cpp=.cppml,.hppml
 --type-set
