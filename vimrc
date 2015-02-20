@@ -191,8 +191,6 @@ let g:tagbar_autofocus = 1
 
 " CtrlP ------------------------------
 
-" file finder mapping
-let g:ctrlp_map = ',e'
 " tags (symbols) in current file finder mapping
 nmap ,g :CtrlPBufTag<CR>
 " tags (symbols) in all files finder mapping
@@ -242,7 +240,7 @@ let g:syntastic_enable_highlighting=1
 let g:syntastic_python_checkers = ['pylint']
 let g:syntastic_python_pylint_args='--max-line-length=100 --disable=C0103,C0111'
 let g:syntastic_quiet_messages = { "type": "style" }
-let g:syntastic_coffee_lint_options = "-f ~/.vim/bundle/vim-coffee-script/coffeelint-config.json"
+"let g:syntastic_coffee_lint_options = "-f ~/.vim/bundle/vim-coffee-script/coffeelint-config.json"
 
 
 " Python-mode ------------------------------
