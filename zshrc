@@ -361,6 +361,7 @@ alias bower='noglob bower'
 alias hist="history | grep $*"
 alias sshagent="eval `ssh-agent -s`"
 alias looper="echo ssh -i ~/.ssh/support/test-looper ubuntu@$1"
+alias ssh_ccache="ssh -i ~/.ssh/support/ccache-user ubuntu@ccache.ufora.com"
 alias space="echo !$*!"
 
 export BASE_PATH=$PATH
@@ -372,16 +373,14 @@ if [[ `uname -s` == 'Darwin' ]]; then
     export PKG_CONFIG_PATH="/System/Library/Frameworks/Python.framework/Versions/2.7/lib/pkgconfig"
     export ARCHFLAGS="-arch x86_64"
 else
-    #export LD_PRELOAD='/usr/local/lib/libtcmalloc.so'
-    export BASE_PYTHONPATH=""
-    export PYTHONPATH=$HOME/projects/ufora:$BASE_PYTHONPATH
     export BASE_PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games
-    export PATH=/home/ronenh/projects/ufora/ufora/scripts:$BASE_PATH
-    export NACL_SDK_ROOT=~/google/nacl_sdk/pepper_17
+    export CCACHE_DIR=$HOME/volumes/ccache
+    export CCACHE_COMPILERCHECK=content
     alias tmux="/home/ronenh/local/tmux-1.8/tmux -CC $*"
     alias pbcopy='xclip -selection clipboard'
     alias pbpaste='xclip -selection clipboard -o'
-    docker_run() { sudo docker run -t -i "$*" /bin/bash }
+    alias pp="export PYTHONPATH=`pwd`; export PATH=$PYTHONPATH/ufora/scripts:$PATH"
+    dr() { sudo docker run -t -i --volumes-from DATA $* /bin/bash }
 fi
 
 function switch_repo() {
