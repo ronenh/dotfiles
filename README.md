@@ -5,7 +5,13 @@ This repo includes VIM and z-shell configuration as well as settings for other t
 ## Installation
 
 1. Clone the repo to a local directory (`~/.dev` in these instructions).
-2. Run `~/.dev/setup.sh` to create symbolic links in your home directory
+2. Pull submodules:
+
+        $ cd ~/.dev
+        $ git submodule init
+        $ git submodule update
+
+3. Run `~/.dev/setup.sh` to create symbolic links in your home directory
 
 ## Vim Plugins
 
