@@ -33,9 +33,8 @@ Plugin 'kien/tabman.vim'
 Plugin 'bling/vim-bufferline'
 " Consoles as buffers
 Plugin 'rosenfeld/conque-term'
-
-"Plugin 'jeetsukumaran/vim-buffergator'
-
+" Buffer manager
+Plugin 'jeetsukumaran/vim-buffergator'
 " Compile coffee-script in vim
 Plugin 'kchmck/vim-coffee-script'
 " Solarized color scheme
@@ -155,6 +154,10 @@ set smartcase
 nnoremap <C-e> 3<C-e>
 nnoremap <C-y> 3<C-y>
 
+" Hide top line buffer list
+set hidden
+set laststatus=2
+
 
 " Relative line numbers
 """""""""""""""""""""""
@@ -259,6 +262,8 @@ let g:pymode_rope_goto_definition_bind = ',d'
 let g:pymode_rope_goto_definition_cmd = 'e'
 nmap <leader>D :tab split<CR>:PymodePython rope.goto()<CR>
 nmap <leader>o :RopeFindOccurrences<CR>
+" don't set breakpoints
+let g:pymode_breakpoint = 0
 
 "autocmd FileType python set omnifunc=pythoncomplete#Complete
 
@@ -281,10 +286,7 @@ let g:airline_theme = 'solarized'
 
 
 
-" better buffer management
-"set hidden
 
-"set laststatus=2
 
 
 
