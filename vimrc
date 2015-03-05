@@ -27,8 +27,6 @@ Plugin 'bling/vim-airline'
 Plugin 'klen/python-mode'
 " Python and other languages code checker
 Plugin 'scrooloose/syntastic'
-" Tab list panel
-Plugin 'kien/tabman.vim'
 " List of open buffers
 Plugin 'bling/vim-bufferline'
 " Consoles as buffers
@@ -194,10 +192,14 @@ let g:tagbar_autofocus = 1
 
 " CtrlP ------------------------------
 
+nmap <leader>bb :CtrlPBuffer<cr>
+nmap <leader>bm :CtrlPMixed<cr>
+nmap <leader>bs :CtrlPMRU<cr>
+
 " tags (symbols) in current file finder mapping
-nmap <leader>g :CtrlPBufTag<CR>
+nmap <leader>tg :CtrlPBufTag<CR>
 " tags (symbols) in all files finder mapping
-nmap <leader>G :CtrlPBufTagAll<CR>
+nmap <leader>tG :CtrlPBufTagAll<CR>
 " general code finder in all files mapping
 nmap <leader>f :CtrlPLine<CR>
 " recent files finder mapping
@@ -217,14 +219,32 @@ nmap <leader>we :call CtrlPWithSearchText(expand('<cword>'), '')<CR>
 nmap <leader>pe :call CtrlPWithSearchText(expand('<cfile>'), '')<CR>
 nmap <leader>wm :call CtrlPWithSearchText(expand('<cword>'), 'MRUFiles')<CR>
 nmap <leader>wc :call CtrlPWithSearchText(expand('<cword>'), 'CmdPalette')<CR>
-" don't change working directory
-let g:ctrlp_working_path_mode = 0
+
+" Show .hidden files
+let g:ctrlp_show_hidden = 1
+" Use the nearest .git directory as the cwd
+let g:ctrlp_working_path_mode = 'r'
 " ignore these files and folders on file finder
 let g:ctrlp_custom_ignore = {
   \ 'dir':  '\v[\/](\.git|\.hg|\.svn)$',
-  \ 'file': '\.pyc$\|\.pyo$',
+  \ 'file': '\.pyc$\|\.pyo$|\.log$',
   \ }
 
+
+
+" Buffergator ------------------------------
+
+" Define our own key mapping
+let g:buffergator_suppress_keymaps = 1
+
+" Go to the previous buffer open
+nmap <leader>jj :BuffergatorMruCyclePrev<cr>
+
+" Go to the next buffer open
+nmap <leader>kk :BuffergatorMruCycleNext<cr>
+
+" View the entire list of buffers open
+nmap <leader>bl :BuffergatorOpen<cr>
 
 " Syntastic ------------------------------
 
@@ -238,8 +258,6 @@ let g:syntastic_warning_symbol='⚠'
 let g:syntastic_enable_highlighting=1
 "let g:syntastic_style_warning_symbol='⚠'
 "let g:syntastic_style_enable_highlighting=1
-"let g:syntastic_auto_loc_list=0
-"let g:syntastic_loc_list_height=5
 let g:syntastic_python_checkers = ['pylint']
 let g:syntastic_python_pylint_args='--max-line-length=100 --disable=C0103,C0111'
 let g:syntastic_quiet_messages = { "type": "style" }
@@ -272,7 +290,7 @@ let g:pymode_breakpoint = 0
 " toggle nerdtree display
 map <F3> :NERDTreeToggle<CR>
 " open nerdtree with the current file selected
-nmap <leader>t :NERDTreeFind<CR>
+nmap <leader>tf :NERDTreeFind<CR>
 " don;t show these file types
 let NERDTreeIgnore = ['\.pyc$', '\.pyo$']
 
@@ -281,8 +299,10 @@ let NERDTreeIgnore = ['\.pyc$', '\.pyo$']
 
 let g:airline_powerline_fonts = 0
 let g:airline_theme = 'solarized'
-"let g:airline#extensions#tabline#enabled = 1
-"let g:airline#extensions#whitespace#enabled = 1
+" Enable the list of buffers
+ let g:airline#extensions#tabline#enabled = 1
+" " Show just the filename
+let g:airline#extensions#tabline#fnamemod = ':t'
 
 
 
