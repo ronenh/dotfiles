@@ -379,8 +379,12 @@ else
     alias tmux="/home/ronenh/local/tmux-1.8/tmux -CC $*"
     alias pbcopy='xclip -selection clipboard'
     alias pbpaste='xclip -selection clipboard -o'
-    alias pp="export PYTHONPATH=`pwd`; export PATH=$PYTHONPATH/ufora/scripts:$PATH"
-    dr() { sudo docker run -t -i --volumes-from DATA $* /bin/bash }
+    pp() {
+        export PYTHONPATH=`pwd`
+        export PATH=$PYTHONPATH/ufora/scripts:$PATH
+        }
+
+    dr() { docker run -t -i --volumes-from DATA $* /bin/bash }
 fi
 
 function switch_repo() {
