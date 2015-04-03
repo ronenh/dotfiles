@@ -52,6 +52,7 @@ Plugin 'tpope/vim-unimpaired'
 " Automatically detect indentation depth, soft-tabs, etc.
 Plugin 'yaifa.vim'
 
+Plugin 'powerline/powerline', {'rtp': 'powerline/bindings/vim/'}
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -295,14 +296,22 @@ nmap <leader>tf :NERDTreeFind<CR>
 let NERDTreeIgnore = ['\.pyc$', '\.pyo$']
 
 
+" Powerline ----------------------------
+set guifont=Inconsolata\ for\ Powerline:h15
+let g:Powerline_symbols = 'fancy'
+set encoding=utf-8
+set fillchars+=stl:\ ,stlnc:\
+set term=xterm-256color
+set termencoding=utf-8
+
 " Airline ------------------------------
 
-let g:airline_powerline_fonts = 0
+let g:airline_powerline_fonts = 1
 let g:airline_theme = 'solarized'
 " Enable the list of buffers
- let g:airline#extensions#tabline#enabled = 1
+ "let g:airline#extensions#tabline#enabled = 1
 " " Show just the filename
-let g:airline#extensions#tabline#fnamemod = ':t'
+"let g:airline#extensions#tabline#fnamemod = ':t'
 
 
 
