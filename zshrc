@@ -384,7 +384,7 @@ else
         export PATH=$PYTHONPATH/ufora/scripts:$PATH
         }
 
-    dr() { docker run -t -i --volumes-from DATA $* /bin/bash }
+    dr() { docker run -t -i --rm=true --volumes-from DATA $* /bin/bash }
 fi
 
 function switch_repo() {
