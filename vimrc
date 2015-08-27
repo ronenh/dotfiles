@@ -299,7 +299,10 @@ let NERDTreeIgnore = ['\.pyc$', '\.pyo$']
 let g:airline_powerline_fonts = 1
 let g:airline_theme = 'solarized'
 let g:airline#extensions#tabline#enabled = 1
-"let g:airline#extensions#whitespace#enabled = 0
+call airline#parts#define_minwidth('branch', 80)
+call airline#parts#define_minwidth('whitespace', 100)
+call airline#parts#define_minwidth('hunks', 100)
+call airline#parts#define_minwidth('whitespace', 120)
 call airline#parts#define_minwidth('filetype', 140)
 call airline#parts#define_minwidth('ffenc', 140)
 call airline#parts#define_minwidth('tagbar', 250)
