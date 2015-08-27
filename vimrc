@@ -27,8 +27,6 @@ Plugin 'bling/vim-airline'
 Plugin 'klen/python-mode'
 " Python and other languages code checker
 Plugin 'scrooloose/syntastic'
-" List of open buffers
-Plugin 'bling/vim-bufferline'
 " Consoles as buffers
 Plugin 'rosenfeld/conque-term'
 " Buffer manager
@@ -51,8 +49,6 @@ Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-unimpaired'
 " Automatically detect indentation depth, soft-tabs, etc.
 Plugin 'yaifa.vim'
-
-Plugin 'powerline/powerline', {'rtp': 'powerline/bindings/vim/'}
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -227,7 +223,7 @@ let g:ctrlp_show_hidden = 1
 let g:ctrlp_working_path_mode = 'r'
 " ignore these files and folders on file finder
 let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/](\.git|\.hg|\.svn)$',
+  \ 'dir':  '\v[\/](\.git|\.hg|\.svn|\.build)$',
   \ 'file': '\.pyc$\|\.pyo$|\.log$',
   \ }
 
@@ -254,8 +250,8 @@ nmap <leader>e :Errors<CR>
 " check also when just opened the file
 let g:syntastic_check_on_open=1
 let g:syntastic_enable_signs=1
-let g:syntastic_error_symbol='✗'
-let g:syntastic_warning_symbol='⚠'
+let g:syntastic_error_symbol='✘'
+let g:syntastic_warning_symbol='☣'
 let g:syntastic_enable_highlighting=1
 "let g:syntastic_style_warning_symbol='⚠'
 "let g:syntastic_style_enable_highlighting=1
@@ -263,6 +259,7 @@ let g:syntastic_python_checkers = ['pylint']
 let g:syntastic_python_pylint_args='--max-line-length=100 --disable=C0103,C0111'
 let g:syntastic_quiet_messages = { "type": "style" }
 "let g:syntastic_coffee_lint_options = "-f ~/.vim/bundle/vim-coffee-script/coffeelint-config.json"
+let g:syntastic_cpp_checkers = []
 
 
 " Python-mode ------------------------------
@@ -296,51 +293,13 @@ nmap <leader>tf :NERDTreeFind<CR>
 let NERDTreeIgnore = ['\.pyc$', '\.pyo$']
 
 
-" Powerline ----------------------------
-set guifont=Inconsolata\ for\ Powerline:h15
-let g:Powerline_symbols = 'fancy'
-set encoding=utf-8
-set fillchars+=stl:\ ,stlnc:\
-set term=xterm-256color
-set termencoding=utf-8
 
 " Airline ------------------------------
 
 let g:airline_powerline_fonts = 1
 let g:airline_theme = 'solarized'
-" Enable the list of buffers
- "let g:airline#extensions#tabline#enabled = 1
-" " Show just the filename
-"let g:airline#extensions#tabline#fnamemod = ':t'
-
-
-
-
-
-
-
-"set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.cxx
-""set statusline=[%n]\ %<%.99f\ %h%w%m%r%{exists('*CapsLockStatusline')?CapsLockStatusline():''}%y%=%-16(\ %l,%c-%v\ %)%P
-"set statusline=   " clear the statusline for when vimrc is reloaded
-"set statusline+=[%n]\                      	 " buffer number
-"set statusline+=%f\                          " file name
-"set statusline+=%h%m%r%w                     " flags
-"set statusline+=[%{strlen(&ft)?&ft:'none'},  " filetype
-"set statusline+=%{strlen(&fenc)?&fenc:&enc}, " encoding
-"set statusline+=%{&fileformat}]              " file format
-"set statusline+=%=                           " right align
-"set statusline+=%{synIDattr(synID(line('.'),col('.'),1),'name')}\  " highlight
-"set statusline+=%b,0x%-8B\                   " current char
-"set statusline+=%-14.(%l,%c%V%)\ %<%P        " offset
-
-
-
-"command! -nargs=0 -bar Qargs execute 'args ' . QuickfixFilenames()
-"function! QuickfixFilenames()
-  "" Building a hash ensures we get each buffer only once
-  "let buffer_numbers = {}
-  "for quickfix_item in getqflist()
-    "let buffer_numbers[quickfix_item['bufnr']] = bufname(quickfix_item['bufnr'])
-  "endfor
-  "return join(values(buffer_numbers))
-"endfunction
+let g:airline#extensions#tabline#enabled = 1
+"let g:airline#extensions#whitespace#enabled = 0
+call airline#parts#define_minwidth('filetype', 140)
+call airline#parts#define_minwidth('ffenc', 140)
+call airline#parts#define_minwidth('tagbar', 250)
