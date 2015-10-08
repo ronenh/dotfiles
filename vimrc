@@ -97,9 +97,9 @@ colorscheme solarized
 " Keep 3 context lines around the viewport
 set scrolloff=3
 
-" autocompletion of files and commands behaves like shell
-" (complete only the common part, list the options that match)
-set wildmode=list:longest
+" Auto completion of VIM commands
+set wildmenu
+set wildmode=full
 
 " better backup, swap and undos storage
 set directory=~/.vim/dirs/tmp     " directory to place swap files in
@@ -305,4 +305,17 @@ call airline#parts#define_minwidth('hunks', 100)
 call airline#parts#define_minwidth('whitespace', 120)
 call airline#parts#define_minwidth('filetype', 140)
 call airline#parts#define_minwidth('ffenc', 140)
-call airline#parts#define_minwidth('tagbar', 250)
+call airline#parts#define_minwidth('tagbar', 180)
+
+
+
+" Custom functions
+function! ToggleHeader(file)
+  if (a:file:e[0] == "c")
+    let prefix = "h"
+  elseif (a:file:e[0] == "h")
+    let prefix = "c"
+  else 
+    return
+  :e %<.prefix+a:file:e[1:]
+endfunc
