@@ -385,6 +385,9 @@ else
         }
 
     dr() { docker run -t -i --rm=true --volumes-from DATA $* /bin/bash }
+
+    bindkey "^[^[[D" backward-word
+    bindkey "^[^[[C" forward-word
 fi
 
 function switch_repo() {
