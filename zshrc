@@ -360,9 +360,10 @@ alias bower='noglob bower'
 
 alias hist="history | grep $*"
 alias sshagent="eval `ssh-agent -s`"
-alias looper="echo ssh -i ~/.ssh/support/test-looper ubuntu@$1"
-alias ssh_ccache="ssh -i ~/.ssh/support/ccache-user ubuntu@ccache.ufora.com"
-alias space="echo !$*!"
+
+function looper() {
+    ssh -i ~/.ssh/support/test-looper ubuntu@`echo $1 | sed -e 's/^ *//'`
+}
 
 export BASE_PATH=$PATH
 
