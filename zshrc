@@ -403,8 +403,3 @@ ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%}"
 ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[blue]%}) %{$fg[yellow]%}✗%{$reset_color%}"
 ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg[blue]%})"
 
-if [ -f $HOME/.nvm/nvm.sh ]
-then
-    . $HOME/.nvm/nvm.sh
-    nvm use v0.10.28
-fi
