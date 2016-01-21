@@ -12,3 +12,5 @@ fora=.fora
 html=.jade
 --type-add
 css=.styl
+--type-set
+markdown=.md
