@@ -389,6 +389,12 @@ else
 
     bindkey "^[^[[D" backward-word
     bindkey "^[^[[C" forward-word
+
+#   for PyEnv
+    export PYENV_ROOT="$HOME/.pyenv"
+    export PATH="$HOME/.pyenv/bin:$PATH"
+    export PATH="$HOME/.pyenv/shims:$PATH"
+    eval "$(pyenv init -)"
 fi
 
 function switch_repo() {
@@ -403,3 +409,5 @@ ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%}"
 ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[blue]%}) %{$fg[yellow]%}✗%{$reset_color%}"
 ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg[blue]%})"
 
+
+export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
