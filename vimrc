@@ -232,8 +232,8 @@ let g:ctrlp_show_hidden = 1
 let g:ctrlp_working_path_mode = 'r'
 " ignore these files and folders on file finder
 let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/](\.git|\.hg|\.svn|\.build)$',
-  \ 'file': '\v\.pyc$|\.pyo$|\.log$'
+  \ 'dir':  '\v[\/](\.git|\.hg|\.svn|\.build|_site)$',
+  \ 'file': '\.pyc$\|\.pyo$|\.log$'
   \ }
 
 

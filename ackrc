@@ -3,6 +3,7 @@
 --ignore-dir=node_modules
 --ignore-dir=.ropeproject
 --ignore-dir=packages/python/build
+--ignore-dir=_site
 --type-add
 cpp=.cppml,.hppml
 --type-set
@@ -15,3 +16,5 @@ html=.jade
 css=.styl
 --type-set
 markdown=.md
+--type-add
+rst=.rst
