@@ -34,11 +34,13 @@ Plugin 'jeetsukumaran/vim-buffergator'
 " Compile coffee-script in vim
 Plugin 'kchmck/vim-coffee-script'
 " Solarized color scheme
-Plugin 'altercation/vim-colors-solarized'
+" Plugin 'altercation/vim-colors-solarized'
 " Git integration
 Plugin 'tpope/vim-fugitive'
 " Show git status in the gutter
 Plugin 'airblade/vim-gitgutter'
+" Syntax highlighing for .pug files
+Plugin 'digitaltoad/vim-pug'
 " Syntax highlighing for .jade files
 Plugin 'digitaltoad/vim-jade'
 " Syntax highlighing for .styl files
@@ -49,21 +51,23 @@ Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-unimpaired'
 " Automatically detect indentation depth, soft-tabs, etc.
 Plugin 'yaifa.vim'
+" Autocompletion on steroids
 Plugin 'Valloric/YouCompleteMe'
+
+Plugin 'Raimondi/delimitMate'
+
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
 
 
-filetype plugin indent on
-
 " tabs and spaces
 set expandtab
 set tabstop=4
 set softtabstop=4
 set shiftwidth=4
-"set cinoptions=>s,e0,n0,f1s,{1s,}0,^0,L-1,:s,=s,l0,b0,gs,hs,ps,ts,is,+s,c3,C0,/0,(2s,us,U0,w0,W0,m0,j0,J0,)20,*70,#j0
+set cinoptions=>s,e0,n0,f1s,{1s,}0,^0,L-1,:s,=s,l0,b0,gs,hs,ps,ts,is,+s,c3,C0,/0,(2s,us,U0,w0,W0,m0,j0,J0,)20,*70,#j0
 
 " tab length exceptions on some file types
 autocmd FileType html setlocal shiftwidth=2 tabstop=2 softtabstop=2
@@ -96,8 +100,8 @@ set completeopt-=preview
 
 
 set t_Co=256
-set background=dark
-colorscheme solarized
+" set background=dark
+" colorscheme solarized
 
 " Keep 3 context lines around the viewport
 set scrolloff=3
@@ -229,7 +233,7 @@ let g:ctrlp_working_path_mode = 'r'
 " ignore these files and folders on file finder
 let g:ctrlp_custom_ignore = {
   \ 'dir':  '\v[\/](\.git|\.hg|\.svn|\.build)$',
-  \ 'file': '\.pyc$\|\.pyo$|\.log$',
+  \ 'file': '\v\.pyc$|\.pyo$|\.log$'
   \ }
 
 
@@ -256,7 +260,9 @@ nmap <leader>e :Errors<CR>
 let g:syntastic_check_on_open=1
 let g:syntastic_enable_signs=1
 let g:syntastic_error_symbol='✘'
-let g:syntastic_warning_symbol='☣'
+let g:syntastic_warning_symbol='≫'
+highlight SyntasticErrorSign ctermfg=1 ctermbg=248 guifg=Red guibg=Grey
+highlight SyntasticWarningSign ctermfg=4 ctermbg=248 guifg=Purple guibg=Grey
 let g:syntastic_enable_highlighting=1
 "let g:syntastic_style_warning_symbol='⚠'
 "let g:syntastic_style_enable_highlighting=1
@@ -285,6 +291,7 @@ nmap <leader>D :tab split<CR>:PymodePython rope.goto()<CR>
 nmap <leader>o :RopeFindOccurrences<CR>
 " don't set breakpoints
 let g:pymode_breakpoint = 0
+let g:pymode_options_max_line_length = 99
 
 "autocmd FileType python set omnifunc=pythoncomplete#Complete
 
@@ -324,3 +331,13 @@ function! ToggleHeader(file)
     return
   :e %<.prefix+a:file:e[1:]
 endfunc
+
+
+" Colors and highlighting
+hi! DiffChange NONE
+hi! DiffText ctermbg=3
+hi! DiffAdd ctermbg=2
+hi! DiffDelete ctermbg=0
+hi! SpellCap cterm=undercurl ctermbg=NONE
+hi! SpellBad cterm=undercurl ctermbg=NONE
+
