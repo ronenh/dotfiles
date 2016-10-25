@@ -53,6 +53,8 @@ Plugin 'tpope/vim-unimpaired'
 Plugin 'yaifa.vim'
 " Autocompletion on steroids
 Plugin 'Valloric/YouCompleteMe'
+" Haskell
+Plugin 'neovimhaskell/haskell-vim'
 
 Plugin 'Raimondi/delimitMate'
 
