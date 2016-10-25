@@ -365,7 +365,10 @@ function looper() {
     ssh -i ~/.ssh/support/test-looper ubuntu@`echo $1 | sed -e 's/^ *//'`
 }
 
+dr() { docker run -t -i --rm=true --volumes-from DATA $* /bin/bash }
+
 export BASE_PATH=$PATH
+
 
 if [[ `uname -s` == 'Darwin' ]]; then
     export BASE_PYTHONPATH="/usr/local/lib/python-2.7/site-packages:$PYTHONPATH"
@@ -373,6 +376,7 @@ if [[ `uname -s` == 'Darwin' ]]; then
     export PATH="$BASE_PATH:/Users/ronenh/repo/src/ufora/scripts"
     export PKG_CONFIG_PATH="/System/Library/Frameworks/Python.framework/Versions/2.7/lib/pkgconfig"
     export ARCHFLAGS="-arch x86_64"
+    alias vim="mvim -v $*"
 else
     export BASE_PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games
     export CCACHE_DIR=$HOME/volumes/ccache
@@ -385,7 +389,6 @@ else
         export PATH=$PYTHONPATH/ufora/scripts:$PATH
         }
 
-    dr() { docker run -t -i --rm=true --volumes-from DATA $* /bin/bash }
 
     bindkey "^[^[[D" backward-word
     bindkey "^[^[[C" forward-word
@@ -412,8 +415,6 @@ ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg[blue]%})"
 
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 
-# added by Miniconda2 3.19.0 installer
-#export PATH="/home/ronenh/miniconda2/bin:$PATH"
 
 # iTerm2 shell integration
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
