@@ -32,9 +32,6 @@ then
     export VISUAL=$EDITOR
 fi
 
-# FAQ 3.10: Why does zsh not work in an Emacs shell mode any more?
-# http://zsh.sourceforge.net/FAQ/zshfaq03.html#l26
-#[[ $EMACS = t ]] && unsetopt zle
 
 # Zsh settings for history
 export HISTIGNORE="&:ls:[bf]g:exit:reset:clear:cd:cd ..:cd.."
@@ -355,8 +352,6 @@ bindkey -v
 function looper_rev() {
     format-looper-data.py --revisionId `git rev-parse $1`;
 }
-alias rm_testoutput="rm -f stack*; rm -f testJenkinsSummary.json; rm -rf artifacts*; rm -f nosetests*xml; rm -f py*log; ls -1 | grep '^[a-f0-9]\{32\}$' | xargs rm -rf"
-alias bower='noglob bower'
 
 alias hist="history | grep $*"
 alias sshagent="eval `ssh-agent -s`"
@@ -367,28 +362,17 @@ function looper() {
 
 dr() { docker run -t -i --rm=true --volumes-from DATA $* /bin/bash }
 
-export BASE_PATH=$PATH
-
 
 if [[ `uname -s` == 'Darwin' ]]; then
-    export BASE_PYTHONPATH="/usr/local/lib/python-2.7/site-packages:$PYTHONPATH"
-    export PYTHONPATH="/Users/ronenh/repo/src:$PYTHONPATH"
-    export PATH="$BASE_PATH:/Users/ronenh/repo/src/ufora/scripts"
-    export PKG_CONFIG_PATH="/System/Library/Frameworks/Python.framework/Versions/2.7/lib/pkgconfig"
-    export ARCHFLAGS="-arch x86_64"
-    alias vim="mvim -v $*"
+    alias pritunl='cat ~/Desktop/ronen/ronen.pin | pbcopy; open -a Pritunl'
+    alias amlx_env='source ~/venv/amlx/bin/activate'
+    export LC_CTYPE=en_US.UTF-8
 else
-    export BASE_PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games
     export CCACHE_DIR=$HOME/volumes/ccache
     export CCACHE_COMPILERCHECK=content
     alias tmux="/home/ronenh/local/tmux-1.8/tmux -CC $*"
     alias pbcopy='xclip -selection clipboard'
     alias pbpaste='xclip -selection clipboard -o'
-    pp() {
-        export PYTHONPATH=`pwd`
-        export PATH=$PYTHONPATH/ufora/scripts:$PATH
-        }
-
 
     bindkey "^[^[[D" backward-word
     bindkey "^[^[[C" forward-word
@@ -400,11 +384,6 @@ else
     eval "$(pyenv init -)"
 fi
 
-function switch_repo() {
-    export PATH=`pwd`:$BASE_PATH
-    export PYTHONPATH=`pwd`:$BASE_PYTHONPATH
-}
-
 PROMPT='%{$fg_bold[red]%}➜ [%?] %{$reset_color%}%2c %{$fg[blue]%}$(git_prompt_info)%{$fg[blue]%} %{$reset_color%}'
 RPROMPT='[%{$fg[cyan]%}%n%{$reset_color%}@%{$fg[magenta]%}%m %{$fg[blue]%}%*%{$reset_color%}]'
 ZSH_THEME_GIT_PROMPT_PREFIX="git:(%{$fg[red]%}"
@@ -414,6 +393,16 @@ ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg[blue]%})"
 
 
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+export PIP_REQUIRE_VIRTUALENV=true
+function gpip() {
+   PIP_REQUIRE_VIRTUALENV="" pip "$@"
+}
+# this is great when DNS is setup properly
+function resolve() {
+    host $1 | awk '{ print $4  }' | grep --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn} -v 'in' | xargs -I {} dig +short -x {}
+}
+
+export ANSIBLE_VAULT_PASSWORD_FILE=~/.vault_pass_ingest
 
 
 # iTerm2 shell integration
