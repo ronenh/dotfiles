@@ -22,11 +22,12 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'majutsushi/tagbar'
 " Airline
 Plugin 'bling/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
 " Python mode (indentation, doc, refactor, lints, code checking, motion and
 " operators, highlighting, run and ipdb breakpoints)
 Plugin 'klen/python-mode'
 " Python and other languages code checker
-Plugin 'scrooloose/syntastic'
+Plugin 'vim-syntastic/syntastic'
 " Consoles as buffers
 Plugin 'rosenfeld/conque-term'
 " Buffer manager
@@ -34,7 +35,7 @@ Plugin 'jeetsukumaran/vim-buffergator'
 " Compile coffee-script in vim
 Plugin 'kchmck/vim-coffee-script'
 " Solarized color scheme
-" Plugin 'altercation/vim-colors-solarized'
+Plugin 'altercation/vim-colors-solarized'
 " Git integration
 Plugin 'tpope/vim-fugitive'
 " Show git status in the gutter
@@ -52,7 +53,8 @@ Plugin 'tpope/vim-unimpaired'
 " Automatically detect indentation depth, soft-tabs, etc.
 Plugin 'yaifa.vim'
 " Autocompletion on steroids
-Plugin 'Valloric/YouCompleteMe'
+"Plugin 'Valloric/YouCompleteMe'
+Plugin 'Shougo/neocomplete'
 " Haskell
 Plugin 'neovimhaskell/haskell-vim'
 
@@ -70,6 +72,7 @@ set tabstop=4
 set softtabstop=4
 set shiftwidth=4
 set cinoptions=>s,e0,n0,f1s,{1s,}0,^0,L-1,:s,=s,l0,b0,gs,hs,ps,ts,is,+s,c3,C0,/0,(2s,us,U0,w0,W0,m0,j0,J0,)20,*70,#j0
+set backspace=indent,eol,start
 
 " tab length exceptions on some file types
 autocmd FileType html setlocal shiftwidth=2 tabstop=2 softtabstop=2
@@ -102,8 +105,8 @@ set completeopt-=preview
 
 
 set t_Co=256
-" set background=dark
-" colorscheme solarized
+set background=dark
+colorscheme solarized
 
 " Keep 3 context lines around the viewport
 set scrolloff=3
@@ -118,7 +121,11 @@ set backup                        " make backup files
 set backupdir=~/.vim/dirs/backups " where to put backup files
 set undofile                      " persistent undos - undo after you re-open the file
 set undodir=~/.vim/dirs/undos
-set viminfo+=n~/.vim/dirs/viminfo
+if has('nvim')
+  set viminfo+=n~/.vim/dirs/nviminfo
+else
+  set viminfo+=n~/.vim/dirs/viminfo
+endif
 " store yankring history file there too
 let g:yankring_history_dir = '~/.vim/dirs/'
 
@@ -263,12 +270,12 @@ let g:syntastic_check_on_open=1
 let g:syntastic_enable_signs=1
 let g:syntastic_error_symbol='✘'
 let g:syntastic_warning_symbol='≫'
-highlight SyntasticErrorSign ctermfg=1 ctermbg=248 guifg=Red guibg=Grey
-highlight SyntasticWarningSign ctermfg=4 ctermbg=248 guifg=Purple guibg=Grey
+"highlight SyntasticErrorSign ctermfg=1 ctermbg=248 guifg=Red guibg=Grey
+"highlight SyntasticWarningSign ctermfg=4 ctermbg=248 guifg=Purple guibg=Grey
 let g:syntastic_enable_highlighting=1
 "let g:syntastic_style_warning_symbol='⚠'
 "let g:syntastic_style_enable_highlighting=1
-let g:syntastic_python_checkers = ['pylint']
+"let g:syntastic_python_checkers = ['pylint']
 let g:syntastic_python_pylint_args='--max-line-length=100 --disable=C0103,C0111'
 let g:syntastic_quiet_messages = { "type": "style" }
 "let g:syntastic_coffee_lint_options = "-f ~/.vim/bundle/vim-coffee-script/coffeelint-config.json"
@@ -336,10 +343,80 @@ endfunc
 
 
 " Colors and highlighting
-hi! DiffChange NONE
-hi! DiffText ctermbg=3
-hi! DiffAdd ctermbg=2
-hi! DiffDelete ctermbg=0
-hi! SpellCap cterm=undercurl ctermbg=NONE
-hi! SpellBad cterm=undercurl ctermbg=NONE
+"hi! DiffChange NONE
+"hi! DiffText ctermbg=3
+"hi! DiffAdd ctermbg=2
+"hi! DiffDelete ctermbg=0
+"hi! SpellCap cterm=undercurl ctermbg=NONE
+"hi! SpellBad cterm=undercurl ctermbg=NONE
+
+" NeoComplete options
+let g:acp_enableAtStartup = 0
+" Use neocomplete.
+let g:neocomplete#enable_at_startup = 1
+" Use smartcase.
+let g:neocomplete#enable_smart_case = 1
+" Set minimum syntax keyword length.
+let g:neocomplete#sources#syntax#min_keyword_length = 3
+
+" Define dictionary.
+let g:neocomplete#sources#dictionary#dictionaries = {
+    \ 'default' : '',
+    \ 'vimshell' : $HOME.'/.vimshell_hist',
+    \ 'scheme' : $HOME.'/.gosh_completions'
+        \ }
+
+" Define keyword.
+if !exists('g:neocomplete#keyword_patterns')
+    let g:neocomplete#keyword_patterns = {}
+endif
+let g:neocomplete#keyword_patterns['default'] = '\h\w*'
+
+" Plugin key-mappings.
+inoremap <expr><C-g>     neocomplete#undo_completion()
+inoremap <expr><C-l>     neocomplete#complete_common_string()
+
+" Recommended key-mappings.
+" <CR>: close popup and save indent.
+inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+function! s:my_cr_function()
+  return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
+  " For no inserting <CR> key.
+  "return pumvisible() ? "\<C-y>" : "\<CR>"
+endfunction
+" <TAB>: completion.
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+" <C-h>, <BS>: close popup and delete backword char.
+inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+" Close popup by <Space>.
+"inoremap <expr><Space> pumvisible() ? "\<C-y>" : "\<Space>"
+
+" AutoComplPop like behavior.
+"let g:neocomplete#enable_auto_select = 1
+
+" Shell like behavior(not recommended).
+"set completeopt+=longest
+"let g:neocomplete#enable_auto_select = 1
+"let g:neocomplete#disable_auto_complete = 1
+"inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<C-x>\<C-u>"
+
+" Enable omni completion.
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+
+" Enable heavy omni completion.
+if !exists('g:neocomplete#sources#omni#input_patterns')
+  let g:neocomplete#sources#omni#input_patterns = {}
+endif
+"let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
+"let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
+"let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
+
+" For perlomni.vim setting.
+" https://github.com/c9s/perlomni.vim
+let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
 
