@@ -363,10 +363,15 @@ function looper() {
 dr() { docker run -t -i --rm=true --volumes-from DATA $* /bin/bash }
 
 
+bindkey "^[^[[D" backward-word
+bindkey "^[^[[C" forward-word
+
 if [[ `uname -s` == 'Darwin' ]]; then
-    alias pritunl='cat ~/Desktop/ronen/ronen.pin | pbcopy; open -a Pritunl'
+    alias pritunl='cat ~/.pritunl.pin | pbcopy; open -a Pritunl'
     alias amlx_env='source ~/venv/amlx/bin/activate'
+    alias dev-compose='docker-compose -f dev-docker-compose.yml $*'
     export LC_CTYPE=en_US.UTF-8
+    export HOST_IP=`ifconfig | grep -o -m 1 "10\(\.[0-9]\{1,3\}\)\{3\} "`
 else
     export CCACHE_DIR=$HOME/volumes/ccache
     export CCACHE_COMPILERCHECK=content
@@ -374,8 +379,6 @@ else
     alias pbcopy='xclip -selection clipboard'
     alias pbpaste='xclip -selection clipboard -o'
 
-    bindkey "^[^[[D" backward-word
-    bindkey "^[^[[C" forward-word
 
 #   for PyEnv
     export PYENV_ROOT="$HOME/.pyenv"
