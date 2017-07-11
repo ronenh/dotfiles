@@ -179,12 +179,14 @@ nnoremap <C-y> 3<C-y>
 set hidden
 set laststatus=2
 
-
 " Relative line numbers
 """""""""""""""""""""""
+set number
+set relativenumber
+
 function! NumberToggle()
   if(&relativenumber == 1)
-    set number
+    set norelativenumber
   else
     set relativenumber
   endif
@@ -195,10 +197,10 @@ nnoremap <C-n> :call NumberToggle()<cr>
 
 " Switch to absolute line number when vim loses focus
 :au FocusLost * :set number
-:au FocusGained * :set relativenumber
+:au FocusGained * :set norelativenumber
 
 " Switch to absolute line numbers in edit mode
-autocmd InsertEnter * :set number
+autocmd InsertEnter * :set norelativenumber
 autocmd InsertLeave * :set relativenumber
 
 
