@@ -11,9 +11,9 @@ Plugin 'gmarik/Vundle.vim'
 " Regex search in source code files
 Plugin 'mileszs/ack.vim'
 " Code and files fuzzy finder
-Plugin 'kien/ctrlp.vim'
+"Plugin 'kien/ctrlp.vim'
 " Extension to ctrlp, for fuzzy command finder
-Plugin 'fisadev/vim-ctrlp-cmdpalette'
+"Plugin 'fisadev/vim-ctrlp-cmdpalette'
 " Code commenter
 Plugin 'scrooloose/nerdcommenter'
 " Better file browser
@@ -27,7 +27,8 @@ Plugin 'vim-airline/vim-airline-themes'
 " operators, highlighting, run and ipdb breakpoints)
 Plugin 'klen/python-mode'
 " Python and other languages code checker
-Plugin 'vim-syntastic/syntastic'
+"Plugin 'vim-syntastic/syntastic'
+Plugin 'w0rp/ale'
 " Consoles as buffers
 Plugin 'rosenfeld/conque-term'
 " Buffer manager
@@ -67,6 +68,9 @@ Plugin 'haya14busa/incsearch-easymotion.vim'
 Plugin 'honza/vim-snippets'
 " UltiSnips
 Plugin 'sirver/ultisnips'
+" fzf
+Plugin 'junegunn/fzf'
+Plugin 'junegunn/fzf.vim'
 
 
 " All of your Plugins must be added before the following line
@@ -204,6 +208,38 @@ autocmd InsertEnter * :set norelativenumber
 autocmd InsertLeave * :set relativenumber
 
 
+" Toggle Quickfix and Location lists
+function! GetBufferList()
+redir =>buflist
+silent! ls!
+redir END
+return buflist
+endfunction
+
+function! ToggleList(bufname, pfx)
+let buflist = GetBufferList()
+for bufnum in map(filter(split(buflist, '\n'), 'v:val =~ "'.a:bufname.'"'), 'str2nr(matchstr(v:val, "\\d\\+"))')
+if bufwinnr(bufnum) != -1
+    exec(a:pfx.'close')
+    return
+endif
+endfor
+if a:pfx == 'l' && len(getloclist(0)) == 0
+    echohl ErrorMsg
+    echo "Location List is Empty."
+    return
+endif
+let winnr = winnr()
+exec(a:pfx.'open')
+if winnr() != winnr
+wincmd p
+endif
+endfunction
+
+nmap <silent> <leader>l :call ToggleList("Location List", 'l')<CR>
+nmap <silent> <leader>e :call ToggleList("Quickfix List", 'c')<CR>
+
+
 " ============================================================================
 " Plugins settings and mappings
 
@@ -233,8 +269,8 @@ nmap <leader>m :CtrlPMRUFiles<CR>
 nmap <leader>c :CtrlPCmdPalette<CR>
 " to be able to call CtrlP with default search text
 function! CtrlPWithSearchText(search_text, ctrlp_command_end)
-    execute ':CtrlP' . a:ctrlp_command_end
-    call feedkeys(a:search_text)
+execute ':CtrlP' . a:ctrlp_command_end
+call feedkeys(a:search_text)
 endfunction
 " same as previous mappings, but calling with current word as default text
 nmap <leader>wg :call CtrlPWithSearchText(expand('<cword>'), 'BufTag')<CR>
@@ -251,9 +287,9 @@ let g:ctrlp_show_hidden = 1
 let g:ctrlp_working_path_mode = 'r'
 " ignore these files and folders on file finder
 let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/](\.git|\.hg|\.svn|\.build|_site)$',
-  \ 'file': '\.pyc$\|\.pyo$|\.log$'
-  \ }
+\ 'dir':  '\v[\/](\.git|\.hg|\.svn|\.build|_site)$',
+\ 'file': '\.pyc$\|\.pyo$|\.log$'
+\ }
 
 
 
@@ -274,22 +310,29 @@ nmap <leader>bl :BuffergatorOpen<cr>
 " Syntastic ------------------------------
 
 " show list of errors and warnings on the current file
-nmap <leader>e :Errors<CR>
-" check also when just opened the file
-let g:syntastic_check_on_open=1
-let g:syntastic_enable_signs=1
-let g:syntastic_error_symbol='✘'
-let g:syntastic_warning_symbol='≫'
-"highlight SyntasticErrorSign ctermfg=1 ctermbg=248 guifg=Red guibg=Grey
-"highlight SyntasticWarningSign ctermfg=4 ctermbg=248 guifg=Purple guibg=Grey
-let g:syntastic_enable_highlighting=1
-"let g:syntastic_style_warning_symbol='⚠'
-"let g:syntastic_style_enable_highlighting=1
-"let g:syntastic_python_checkers = ['pylint']
-let g:syntastic_python_pylint_args='--max-line-length=100 --disable=C0103,C0111'
-let g:syntastic_quiet_messages = { "type": "style" }
-"let g:syntastic_coffee_lint_options = "-f ~/.vim/bundle/vim-coffee-script/coffeelint-config.json"
-let g:syntastic_cpp_checkers = []
+"nmap <leader>e :Errors<CR>
+"" check also when just opened the file
+"let g:syntastic_check_on_open=0
+"let g:syntastic_check_on_wq = 1
+"let g:syntastic_mode_map = {
+"\ "mode": "active",
+"\ "active_filetypes": [],
+"\ "passive_filetypes": ["python"] }
+"let g:syntastic_enable_signs=1
+"let g:syntastic_error_symbol='✘'
+"let g:syntastic_warning_symbol='≫'
+"let g:syntastic_enable_highlighting=1
+"let g:syntastic_python_pylint_args='--max-line-length=100 --disable=C0103,C0111'
+"let g:syntastic_quiet_messages = { "type": "style" }
+"let g:syntastic_cpp_checkers = []
+"
+
+" ALE (async lint engine) ------------------
+let g:ale_sign_error = '✘'
+let g:ale_sign_warning = '≫'
+let g:airline#extensions#ale#enabled = 1
+"nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+"nmap <silent> <C-j> <Plug>(ale_next_wrap)
 
 
 " Python-mode ------------------------------
@@ -342,13 +385,13 @@ call airline#parts#define_minwidth('tagbar', 180)
 
 " Custom functions
 function! ToggleHeader(file)
-  if (a:file:e[0] == "c")
-    let prefix = "h"
-  elseif (a:file:e[0] == "h")
-    let prefix = "c"
-  else 
-    return
-  :e %<.prefix+a:file:e[1:]
+if (a:file:e[0] == "c")
+let prefix = "h"
+elseif (a:file:e[0] == "h")
+let prefix = "c"
+else 
+return
+:e %<.prefix+a:file:e[1:]
 endfunc
 
 
@@ -476,3 +519,26 @@ omap / <Plug>(easymotion-tn)
 " different highlight method and have some other features )
 map  n <Plug>(easymotion-next)
 map  N <Plug>(easymotion-prev)
+
+
+" FZF ------------------------------
+
+" [Buffers] Jump to the existing window if possible
+let g:fzf_buffers_jump = 1
+
+nmap <C-p> :Files<CR>
+nmap <Leader>b :Buffers<CR>
+nmap <Leader>a :Ag --python 
+
+nmap <leader><tab> <plug>(fzf-maps-n)
+xmap <leader><tab> <plug>(fzf-maps-x)
+omap <leader><tab> <plug>(fzf-maps-o)
+
+" Insert mode completion
+imap <c-x><c-k> <plug>(fzf-complete-word)
+imap <c-x><c-f> <plug>(fzf-complete-path)
+imap <c-x><c-j> <plug>(fzf-complete-file-ag)
+imap <c-x><c-l> <plug>(fzf-complete-line)
+
+
+
