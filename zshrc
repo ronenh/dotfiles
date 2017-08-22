@@ -363,6 +363,9 @@ function looper() {
     ssh -i ~/.ssh/support/test-looper ubuntu@`echo $1 | sed -e 's/^ *//'`
 }
 
+function venv() {
+  source ~/venv/$1/bin/activate
+}
 dr() { docker run -t -i --rm=true --volumes-from DATA $* /bin/bash }
 
 
