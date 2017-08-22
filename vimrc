@@ -64,10 +64,10 @@ Plugin 'haya14busa/incsearch.vim'
 " VIM motions on speed
 Plugin 'easymotion/vim-easymotion'
 Plugin 'haya14busa/incsearch-easymotion.vim'
-" VIM snippets
-Plugin 'honza/vim-snippets'
 " UltiSnips
 Plugin 'sirver/ultisnips'
+" VIM snippets
+Plugin 'honza/vim-snippets'
 " fzf
 Plugin 'junegunn/fzf'
 Plugin 'junegunn/fzf.vim'
@@ -238,6 +238,11 @@ endfunction
 
 nmap <silent> <leader>l :call ToggleList("Location List", 'l')<CR>
 nmap <silent> <leader>e :call ToggleList("Quickfix List", 'c')<CR>
+
+nnoremap <Leader>rm :call delete(@%)
+
+" yank to clipboard by default
+set clipboard=unnamed
 
 
 " ============================================================================
@@ -511,14 +516,16 @@ map  <Leader>w <Plug>(easymotion-bd-w)
 map <Leader>j <Plug>(easymotion-j)
 map <Leader>k <Plug>(easymotion-k)
 
-map  / <Plug>(easymotion-sn)
+"map <Leader>/ <Plug>(easymotion-sn)
+"omap <Leader>/ <Plug>(easymotion-tn)
+map / <Plug>(easymotion-sn)
 omap / <Plug>(easymotion-tn)
 
 " These `n` & `N` mappings are options. You do not have to map `n` & `N` to EasyMotion.
 " Without these mappings, `n` & `N` works fine. (These mappings just provide
 " different highlight method and have some other features )
-map  n <Plug>(easymotion-next)
-map  N <Plug>(easymotion-prev)
+"map  n <Plug>(easymotion-next)
+"map  N <Plug>(easymotion-prev)
 
 
 " FZF ------------------------------
