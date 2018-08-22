@@ -142,7 +142,7 @@ cd . &> /dev/null
 date
 if [[ -x `which fortune` ]]; then
     echo
-    fortune -a 2> /dev/null
+    fortune 2> /dev/null
     echo
 fi
 
@@ -359,6 +359,12 @@ function looper_rev() {
 alias hist="history | grep $*"
 alias sshagent="eval `ssh-agent -s`"
 
+alias sbtc="sbt compile test:compile"
+alias sbta="sbt assembly"
+function host_to_ip() {
+  echo $1 | sed -E -e 's/ip-([[:digit:]]+)-([[:digit:]]+)-([[:digit:]]+)-([[:digit:]]+).us-east-1.enigma/\1.\2.\3\.\4/' | pbcopy
+}
+
 function looper() {
     ssh -i ~/.ssh/support/test-looper ubuntu@`echo $1 | sed -e 's/^ *//'`
 }
@@ -366,8 +372,11 @@ function looper() {
 function venv() {
   source ~/venv/$1/bin/activate
 }
-dr() { docker run -t -i --rm=true --volumes-from DATA $* /bin/bash }
+dr() { docker run -t -i --rm $* /bin/bash }
 
+if [ -f ~/.secrets ]; then
+  source ~/.secrets
+fi
 
 bindkey "^[^[[D" backward-word
 bindkey "^[^[[C" forward-word
@@ -376,9 +385,12 @@ if [[ `uname -s` == 'Darwin' ]]; then
     alias pritunl='cat ~/.pritunl.pin | pbcopy; open -a Pritunl'
     alias amlx_env='source ~/venv/amlx/bin/activate'
     alias dev-compose='docker-compose -f dev-docker-compose.yml $*'
+    alias ctags="`brew --prefix`/bin/ctags"
     export LC_CTYPE=en_US.UTF-8
     ip_addr=`ifconfig | grep -o -m 1 "10\(\.[0-9]\{1,3\}\)\{3\} "`
     export HOST_IP=${ip_addr%?} # strip trailing space
+    export PIP_EXTRA_INDEX_URL=https://repo.artifactory.us-east-1.enigma/artifactory/api/pypi/pypi-local/simple
+    export PIP_TRUSTED_HOST=repo.artifactory.us-east-1.enigma
 else
     export CCACHE_DIR=$HOME/volumes/ccache
     export CCACHE_COMPILERCHECK=content
@@ -395,7 +407,7 @@ else
 fi
 
 PROMPT='%{$fg_bold[red]%}➜ [%?] %{$reset_color%}%2c %{$fg[blue]%}$(git_prompt_info)%{$fg[blue]%} %{$reset_color%}'
-RPROMPT='[%{$fg[cyan]%}%n%{$reset_color%}@%{$fg[magenta]%}%m %{$fg[blue]%}%*%{$reset_color%}]'
+#RPROMPT='[%{$fg[cyan]%}%n%{$reset_color%}@%{$fg[magenta]%}%m %{$fg[blue]%}%*%{$reset_color%}]'
 ZSH_THEME_GIT_PROMPT_PREFIX="git:(%{$fg[red]%}"
 ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%}"
 ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[blue]%}) %{$fg[yellow]%}✗%{$reset_color%}"
@@ -405,7 +417,7 @@ ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg[blue]%})"
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 export PIP_REQUIRE_VIRTUALENV=true
 function gpip() {
-   PIP_REQUIRE_VIRTUALENV="" pip "$@"
+   PIP_REQUIRE_VIRTUALENV="" python -m pip "$@"
 }
 # this is great when DNS is setup properly
 function resolve() {
@@ -538,3 +550,9 @@ source ~/dev/zsh-interactive-cd/zsh-interactive-cd.plugin.zsh
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+if command -v pyenv 1>/dev/null 2>&1; then
+  eval "$(pyenv init -)"
+fi
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
+export PATH="/usr/local/opt/scala@2.11/bin:$PATH"
