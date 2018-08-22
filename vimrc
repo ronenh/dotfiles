@@ -27,7 +27,6 @@ Plugin 'vim-airline/vim-airline-themes'
 " operators, highlighting, run and ipdb breakpoints)
 Plugin 'klen/python-mode'
 " Python and other languages code checker
-"Plugin 'vim-syntastic/syntastic'
 Plugin 'w0rp/ale'
 " Consoles as buffers
 Plugin 'rosenfeld/conque-term'
@@ -54,8 +53,8 @@ Plugin 'tpope/vim-unimpaired'
 " Automatically detect indentation depth, soft-tabs, etc.
 Plugin 'yaifa.vim'
 " Autocompletion on steroids
-"Plugin 'Valloric/YouCompleteMe'
-Plugin 'Shougo/neocomplete'
+"Plugin 'Shougo/neocomplete'
+Plugin 'davidhalter/jedi-vim'
 " Haskell
 Plugin 'neovimhaskell/haskell-vim'
 Plugin 'Raimondi/delimitMate'
@@ -65,13 +64,22 @@ Plugin 'haya14busa/incsearch.vim'
 Plugin 'easymotion/vim-easymotion'
 Plugin 'haya14busa/incsearch-easymotion.vim'
 " UltiSnips
-Plugin 'sirver/ultisnips'
+"Plugin 'sirver/ultisnips'
 " VIM snippets
 Plugin 'honza/vim-snippets'
 " fzf
 Plugin 'junegunn/fzf'
 Plugin 'junegunn/fzf.vim'
-
+" vim-scala
+Plugin 'derekwyatt/vim-scala'
+" vim-autoformat
+Plugin 'Chiel92/vim-autoformat'
+" vim-jinja
+Plugin 'lepture/vim-jinja'
+" editorconfig
+Plugin 'editorconfig/editorconfig-vim'
+" vebugger
+Plugin 'idanarye/vim-vebugger'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -123,6 +131,9 @@ colorscheme solarized
 " Keep 3 context lines around the viewport
 set scrolloff=3
 
+" Enable mouse scrolling and entering visual mode
+set mouse=a
+
 " Auto completion of VIM commands
 set wildmenu
 set wildmode=full
@@ -167,8 +178,8 @@ set invlist
 set list
 nmap <silent> <leader>s :set nolist!<CR>
 
-" Highlight column 100
-set colorcolumn=100
+" Highlight column 120
+set colorcolumn=120
 
 " Make search case insensitive unless there are capital letters in the search
 " expression
@@ -243,6 +254,10 @@ nnoremap <Leader>rm :call delete(@%)
 
 " yank to clipboard by default
 set clipboard=unnamed
+
+" more natural split opening
+set splitbelow
+set splitright
 
 
 " ============================================================================
@@ -342,7 +357,7 @@ let g:airline#extensions#ale#enabled = 1
 
 " Python-mode ------------------------------
 
-" don't use linter, we use syntastic for that
+" don't use linter, we use ALE for that
 let g:pymode_lint = 0
 let g:pymode_lint_on_write = 0
 let g:pymode_lint_signs = 0
@@ -409,44 +424,44 @@ endfunc
 "hi! SpellBad cterm=undercurl ctermbg=NONE
 
 " NeoComplete options
-let g:acp_enableAtStartup = 0
-" Use neocomplete.
-let g:neocomplete#enable_at_startup = 1
-" Use smartcase.
-let g:neocomplete#enable_smart_case = 1
-" Set minimum syntax keyword length.
-let g:neocomplete#sources#syntax#min_keyword_length = 3
+"let g:acp_enableAtStartup = 0
+"" Use neocomplete.
+"let g:neocomplete#enable_at_startup = 1
+"" Use smartcase.
+"let g:neocomplete#enable_smart_case = 1
+"" Set minimum syntax keyword length.
+"let g:neocomplete#sources#syntax#min_keyword_length = 3
 
-" Define dictionary.
-let g:neocomplete#sources#dictionary#dictionaries = {
-    \ 'default' : '',
-    \ 'vimshell' : $HOME.'/.vimshell_hist',
-    \ 'scheme' : $HOME.'/.gosh_completions'
-        \ }
+"" Define dictionary.
+"let g:neocomplete#sources#dictionary#dictionaries = {
+    "\ 'default' : '',
+    "\ 'vimshell' : $HOME.'/.vimshell_hist',
+    "\ 'scheme' : $HOME.'/.gosh_completions'
+        "\ }
 
-" Define keyword.
-if !exists('g:neocomplete#keyword_patterns')
-    let g:neocomplete#keyword_patterns = {}
-endif
-let g:neocomplete#keyword_patterns['default'] = '\h\w*'
+"" Define keyword.
+"if !exists('g:neocomplete#keyword_patterns')
+    "let g:neocomplete#keyword_patterns = {}
+"endif
+"let g:neocomplete#keyword_patterns['default'] = '\h\w*'
 
-" Plugin key-mappings.
-inoremap <expr><C-g>     neocomplete#undo_completion()
-inoremap <expr><C-l>     neocomplete#complete_common_string()
+"" Plugin key-mappings.
+"inoremap <expr><C-g>     neocomplete#undo_completion()
+"inoremap <expr><C-l>     neocomplete#complete_common_string()
 
-" Recommended key-mappings.
-" <CR>: close popup and save indent.
-inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-function! s:my_cr_function()
-  return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
-  " For no inserting <CR> key.
-  "return pumvisible() ? "\<C-y>" : "\<CR>"
-endfunction
-" <TAB>: completion.
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-" <C-h>, <BS>: close popup and delete backword char.
-inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
-inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+"" Recommended key-mappings.
+"" <CR>: close popup and save indent.
+"inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+"function! s:my_cr_function()
+  "return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
+  "" For no inserting <CR> key.
+  ""return pumvisible() ? "\<C-y>" : "\<CR>"
+"endfunction
+"" <TAB>: completion.
+"inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+"" <C-h>, <BS>: close popup and delete backword char.
+"inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+"inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
 " Close popup by <Space>.
 "inoremap <expr><Space> pumvisible() ? "\<C-y>" : "\<Space>"
 
@@ -460,23 +475,23 @@ inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
 "inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<C-x>\<C-u>"
 
 " Enable omni completion.
-autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+"autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+"autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+"autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+"autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+"autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 
-" Enable heavy omni completion.
-if !exists('g:neocomplete#sources#omni#input_patterns')
-  let g:neocomplete#sources#omni#input_patterns = {}
-endif
-"let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-"let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
-"let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
+"" Enable heavy omni completion.
+"if !exists('g:neocomplete#sources#omni#input_patterns')
+  "let g:neocomplete#sources#omni#input_patterns = {}
+"endif
+""let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
+""let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
+""let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
 
-" For perlomni.vim setting.
-" https://github.com/c9s/perlomni.vim
-let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
+"" For perlomni.vim setting.
+"" https://github.com/c9s/perlomni.vim
+"let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
 
 
 " IncSearch ------------------------
@@ -533,7 +548,7 @@ omap / <Plug>(easymotion-tn)
 " [Buffers] Jump to the existing window if possible
 let g:fzf_buffers_jump = 1
 
-nmap <C-p> :Files<CR>
+nmap <C-p> :call fzf#run(fzf#wrap({'source': 'git ls-files --exclude-standard --others --cached'}))<CR>
 nmap <Leader>b :Buffers<CR>
 nmap <Leader>a :Ag --python 
 
@@ -547,5 +562,10 @@ imap <c-x><c-f> <plug>(fzf-complete-path)
 imap <c-x><c-j> <plug>(fzf-complete-file-ag)
 imap <c-x><c-l> <plug>(fzf-complete-line)
 
+" Jump to ctag
+nnoremap <leader>g :call fzf#vim#tags(expand('<cword>'), {'options': '--exact --select-1 --exit-0'})<CR>
 
-
+" Auto Format
+noremap <F5> :Autoformat<CR>
+let g:formatdef_scalafmt = "'scalafmt --stdin'"
+let g:formatters_scala = ['scalafmt']
