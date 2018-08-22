@@ -1,6 +1,6 @@
 [user]
 	name = Ronen Hilewicz
-	email = ronen@ufora.com
+	email = ronen.hilewicz@enigma.com
 
 [color]
 	status = auto
@@ -26,9 +26,9 @@
 	co = checkout
 	di = diff
 
-	list-remotes = !bash -c 'git branch -r | grep -o \"\\S*/${1:-master}$\" | sort | uniq' -
-	oldest-ancestor = !bash -c '(diff -u <(git rev-list --first-parent \"${1:-master}\") <(git rev-list --first-parent \"${2:-HEAD}\") && echo \" HEAD\") | sed -ne \"s/^ //p\" | head -1' -
-	ll = !bash -c 'git log --oneline --decorate --graph master `git list-remotes master` ${1:-HEAD} ^`git oldest-ancestor ${1:-HEAD} origin/master`~3' -
+	list-remotes = !bash -c 'git branch -r | grep -o \"\\S*/${1:-develop}$\" | sort | uniq' -
+	oldest-ancestor = !bash -c '(diff -u <(git rev-list --first-parent \"${1:-develop}\") <(git rev-list --first-parent \"${2:-HEAD}\") && echo \" HEAD\") | sed -ne \"s/^ //p\" | head -1' -
+	ll = !bash -c 'git log --oneline --decorate --graph develop `git list-remotes develop` ${1:-HEAD} ^`git oldest-ancestor ${1:-HEAD} origin/develop`~3' -
 
 	l = log --oneline --decorate --graph
 	r = rebase
@@ -36,6 +36,7 @@
 	rc = rebase --continue
 	rs = rebase ---skip
 	cp = cherry-pick
+	fp = push --force-with-lease
 
 	sm = submodule
 	st = status -s -b
