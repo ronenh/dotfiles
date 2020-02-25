@@ -26,10 +26,6 @@
 	co = checkout
 	di = diff
 
-	list-remotes = !bash -c 'git branch -r | grep -o \"\\S*/${1:-develop}$\" | sort | uniq' -
-	oldest-ancestor = !bash -c '(diff -u <(git rev-list --first-parent \"${1:-develop}\") <(git rev-list --first-parent \"${2:-HEAD}\") && echo \" HEAD\") | sed -ne \"s/^ //p\" | head -1' -
-	ll = !bash -c 'git log --oneline --decorate --graph develop `git list-remotes develop` ${1:-HEAD} ^`git oldest-ancestor ${1:-HEAD} origin/develop`~3' -
-
 	l = log --oneline --decorate --graph
 	r = rebase
 	ri = rebase -i
@@ -45,14 +41,9 @@
 
 	timeline = log --graph --branches --pretty=oneline --decorate
 
-	fixup = !sh -c 'git commit -m \"fixup! $(git log -1 --format=%s $@)\"' -
-	squash = !sh -c 'git commit -m \"squash! $(git log -1 --format=%s $@)\"' -
-
 	ignored-files = ls-files --others -i --exclude-standard
 	modified-files = ls-files -m
 	untracked-files = ls-files -o --exclude-standard
-
-	unstaged = !sh -c 'git l `git for-each-ref refs/heads --format=%\\(refname\\)` ^staging'
 
 [push]
 	default = current
