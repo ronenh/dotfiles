@@ -1,11 +1,28 @@
-# Path to your oh-my-zsh configuration.
-ZSH=$HOME/.oh-my-zsh
+source /usr/local/share/antigen/antigen.zsh
 
-# Set name of the theme to load.
-# Look in ~/.oh-my-zsh/themes/
-# Optionally, if you set this to "random", it'll load a random theme each
-# time that oh-my-zsh is loaded.
-#ZSH_THEME="robbyrussell"
+# Load the oh-my-zsh's library.
+antigen use oh-my-zsh
+
+# Antigen bundles
+antigen bundle git
+antigen bundle pip
+antigen bundle command-not-found
+antigen bundle common-aliase
+antigen bundle osx
+antigen bundle fzf
+antigen bundle virtualenv
+
+
+antigen bundle sharat87/pip-app
+
+antigen bundle zsh-users/zsh-syntax-highlighting
+
+antigen theme robbyrussell
+
+antigen apply
+
+# export user names/passwrods
+source ~/.secrets
 
 # Skip all this for non-interactive shells
 [[ -z "$PS1" ]] && return
@@ -67,52 +84,9 @@ setopt NO_BG_NICE
 watch=notme
 export LOGCHECK=60
 
-# Enable color support of ls
-if [[ "$TERM" != "dumb" ]]; then
-    if [[ -x `which dircolors` ]]; then
-    eval `dircolors ~/.vim/dircolors-solarized/dircolors.ansi-light`
-    alias 'ls=ls --color=auto'
-    fi
-fi
-
-# Why is the date American even when the locale is en_GB?  Fix with this
-#export TIME_STYLE="long-iso"
-
-# Short command aliases
-alias 'l=ls'
-alias 'la=ls -Ah'
-alias 'll=ls -lh'
-alias 'lq=ls -Q'
-alias 'lr=ls -R'
-alias 'lrs=ls -lrS'
-alias 'lrt=ls -lrt'
-alias 'lrta=ls -lrtA'
-alias 'lrth=ls -lrth'
-alias 'lrtha=ls -lrthA'
-alias 'tf=tail -F'
-alias 'grep=grep --colour'
-alias 'vnice=nice -n 20 ionice -c 3'
-
-# Play safe!
-#alias 'rm=rm -i'
-#alias 'mv=mv -i'
-#alias 'cp=cp -i'
-
 # For convenience
 alias 'mkdir=mkdir -p'
 alias 'dus=du -ms * | sort -n'
-
-# Typing errors...
-alias 'cd..=cd ..'
-
-# Global aliases (expand whatever their position)
-#  e.g. find . E L
-alias -g L='| less'
-alias -g H='| head'
-alias -g S='| sort'
-alias -g T='| tail'
-alias -g N='> /dev/null'
-#alias -g E='2> /dev/null'
 
 
 # Automatically background processes (no output to terminal etc)
@@ -121,15 +95,6 @@ zz () {
     echo $*
     $* &> "/tmp/z-${1:gs/\//_}-$RANDOM" &!
 }
-
-# Aliases to use this
-# Use e.g. 'command gv' to avoid
-for i in acroread akregator amarok ario chromium-browser easytag eclipse firefox gimp gpdf gv \
-    gwenview k3b kate konqueror kwrite libreoffice okular \
-    opera; do
-    alias "$i=z $i"
-done
-alias "lo=z libreoffice"
 
 # Quick find
 f() {
@@ -346,8 +311,6 @@ fi
 # Example format: plugins=(rails git textmate ruby lighthouse)
 plugins=(git coffee python cp autojump pip zsh-syntax-highlighting)
 
-source $ZSH/oh-my-zsh.sh
-
 # vi-mode
 bindkey -v
 
@@ -383,30 +346,19 @@ bindkey "^[^[[C" forward-word
 
 if [[ `uname -s` == 'Darwin' ]]; then
     alias pritunl='cat ~/.pritunl.pin | pbcopy; open -a Pritunl'
-    alias amlx_env='source ~/venv/amlx/bin/activate'
-    alias dev-compose='docker-compose -f dev-docker-compose.yml $*'
     alias ctags="`brew --prefix`/bin/ctags"
     export LC_CTYPE=en_US.UTF-8
     ip_addr=`ifconfig | grep -o -m 1 "10\(\.[0-9]\{1,3\}\)\{3\} "`
     export HOST_IP=${ip_addr%?} # strip trailing space
-    export PIP_EXTRA_INDEX_URL=https://repo.artifactory.us-east-1.enigma/artifactory/api/pypi/pypi-local/simple
-    export PIP_TRUSTED_HOST=repo.artifactory.us-east-1.enigma
 else
     export CCACHE_DIR=$HOME/volumes/ccache
     export CCACHE_COMPILERCHECK=content
     alias tmux="/home/ronenh/local/tmux-1.8/tmux -CC $*"
     alias pbcopy='xclip -selection clipboard'
     alias pbpaste='xclip -selection clipboard -o'
-
-
-#   for PyEnv
-    export PYENV_ROOT="$HOME/.pyenv"
-    export PATH="$HOME/.pyenv/bin:$PATH"
-    export PATH="$HOME/.pyenv/shims:$PATH"
-    eval "$(pyenv init -)"
 fi
 
-PROMPT='%{$fg_bold[red]%}➜ [%?] %{$reset_color%}%2c %{$fg[blue]%}$(git_prompt_info)%{$fg[blue]%} %{$reset_color%}'
+PROMPT='%{$fg_bold[red]%}➜ [%?] %{$reset_color%}$(virtualenv_prompt_info) %2c %{$fg[blue]%}$(git_prompt_info)%{$fg[blue]%} %{$reset_color%}'
 #RPROMPT='[%{$fg[cyan]%}%n%{$reset_color%}@%{$fg[magenta]%}%m %{$fg[blue]%}%*%{$reset_color%}]'
 ZSH_THEME_GIT_PROMPT_PREFIX="git:(%{$fg[red]%}"
 ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%}"
@@ -414,8 +366,8 @@ ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[blue]%}) %{$fg[yellow]%}✗%{$reset_color%}"
 ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg[blue]%})"
 
 
-export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 export PIP_REQUIRE_VIRTUALENV=true
+export PYENV_VIRTUALENV_DISABLE_PROMPT=1
 function gpip() {
    PIP_REQUIRE_VIRTUALENV="" python -m pip "$@"
 }
@@ -543,7 +495,7 @@ fstash() {
 }
 
 # interactive zsh cd
-source ~/dev/zsh-interactive-cd/zsh-interactive-cd.plugin.zsh
+source ~/.dev/zsh-interactive-cd/zsh-interactive-cd.plugin.zsh
 
 
 # iTerm2 shell integration
@@ -552,7 +504,17 @@ test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 if command -v pyenv 1>/dev/null 2>&1; then
   eval "$(pyenv init -)"
+  eval "$(pyenv virtualenv-init -)"
 fi
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
-export PATH="/usr/local/opt/scala@2.11/bin:$PATH"
+
+#OktaAWSCLI
+if [[ -f "$HOME/.okta/bash_functions" ]]; then
+    . "$HOME/.okta/bash_functions"
+fi
+if [[ -d "$HOME/.okta/bin" && ":$PATH:" != *":$HOME/.okta/bin:"* ]]; then
+    PATH="$HOME/.okta/bin:$PATH"
+fi
+export PATH="/usr/local/opt/terraform@0.11/bin:$PATH"
+
+export PIP_EXTRA_INDEX_URL="https://$ARTIFACTORY_USERNAME:$ARTIFACTORY_PASSWORD@repo.artifactory.enigma.com/artifactory/api/pypi/pypi-local/simple"
+export PIP_TRUSTED_HOST="repo.artifactory.enigma.com"
