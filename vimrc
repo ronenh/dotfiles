@@ -27,7 +27,7 @@ Plugin 'vim-airline/vim-airline-themes'
 " operators, highlighting, run and ipdb breakpoints)
 Plugin 'klen/python-mode'
 " Python and other languages code checker
-Plugin 'w0rp/ale'
+Plugin 'dense-analysis/ale'
 " Consoles as buffers
 Plugin 'rosenfeld/conque-term'
 " Buffer manager
@@ -374,6 +374,8 @@ nmap <leader>o :RopeFindOccurrences<CR>
 " don't set breakpoints
 let g:pymode_breakpoint = 0
 let g:pymode_options_max_line_length = 99
+" Auto activate virtualenv
+let g:pymode_virtualenv = 1
 
 "autocmd FileType python set omnifunc=pythoncomplete#Complete
 
