@@ -12,3 +12,6 @@ ln -s $SCRIPT_DIR/fzf_funcs.zsh ~/.fzf_funcs.zsh
 # copy VIM ALE plugin configuration
 mkdir ~/.vim/ftplugin
 cp $SCRIPT_DIR/ftplugin/* ~/.vim/ftplugin/
+
+# Pour core formulae
+brew install vim antigen ctags fzf pyenv pyenv-virtualenv
