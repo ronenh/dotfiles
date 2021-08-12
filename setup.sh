@@ -7,6 +7,7 @@ ln -s $SCRIPT_DIR/ackrc ~/.ackrc
 ln -s $SCRIPT_DIR/vimrc ~/.vimrc
 ln -s $SCRIPT_DIR/zshrc ~/.zshrc
 ln -s $SCRIPT_DIR/gitconfig ~/.gitconfig
+ln -s $SCRIPT_DIR/fzf_funcs.zsh ~/.fzf_funcs.zsh
 
 # copy VIM ALE plugin configuration
 mkdir ~/.vim/ftplugin
