@@ -366,6 +366,7 @@ ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg[blue]%})"
 
 export PIP_REQUIRE_VIRTUALENV=true
 export PYENV_VIRTUALENV_DISABLE_PROMPT=1
+export PYTHON_CONFIGURE_OPTS="--enable-framework"
 function gpip() {
    PIP_REQUIRE_VIRTUALENV="" python -m pip "$@"
 }
@@ -399,3 +400,42 @@ fi
 if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init -)"; fi
 
 [[ -s "/Users/ronenh/.gvm/scripts/gvm" ]] && source "/Users/ronenh/.gvm/scripts/gvm"
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/ronenh/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/ronenh/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/ronenh/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/ronenh/google-cloud-sdk/completion.zsh.inc'; fi
+export PATH="/usr/local/opt/postgresql@11/bin:$PATH"
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+export PATH="/Users/ronenh/work/brighthire/bin:$PATH"
+
+export PATH="$HOME/.poetry/bin:$PATH"
+#
+#compdef bh
+###-begin-bh-completions-###
+#
+# yargs command completion script
+#
+# Installation: bh completion >> ~/.zshrc
+#    or bh completion >> ~/.zsh_profile on OSX.
+#
+_bh_yargs_completions()
+{
+  local reply
+  local si=$IFS
+  IFS=$'
+' reply=($(COMP_CWORD="$((CURRENT-1))" COMP_LINE="$BUFFER" COMP_POINT="$CURSOR" bh --get-yargs-completions "${words[@]}"))
+  IFS=$si
+  _describe 'values' reply
+}
+compdef _bh_yargs_completions bh
+###-end-bh-completions-###
+
+
+autoload -U +X bashcompinit && bashcompinit
+complete -o nospace -C /usr/local/bin/terraform terraform
