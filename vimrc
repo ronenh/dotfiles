@@ -8,80 +8,65 @@ call vundle#begin()
 " let Vundle manage Vundle, required
 Plugin 'gmarik/Vundle.vim'
 
-" Regex search in source code files
-Plugin 'mileszs/ack.vim'
-" Code and files fuzzy finder
-"Plugin 'kien/ctrlp.vim'
-" Extension to ctrlp, for fuzzy command finder
-"Plugin 'fisadev/vim-ctrlp-cmdpalette'
-" Code commenter
-Plugin 'scrooloose/nerdcommenter'
-" Better file browser
-Plugin 'scrooloose/nerdtree'
-" Class/module browser
-Plugin 'majutsushi/tagbar'
-" Airline
-Plugin 'bling/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
-" Python mode (indentation, doc, refactor, lints, code checking, motion and
-" operators, highlighting, run and ipdb breakpoints)
-Plugin 'klen/python-mode'
-" Python and other languages code checker
-Plugin 'dense-analysis/ale'
-" Consoles as buffers
-Plugin 'rosenfeld/conque-term'
-" Buffer manager
-Plugin 'jeetsukumaran/vim-buffergator'
-" Compile coffee-script in vim
-Plugin 'kchmck/vim-coffee-script'
-" Solarized color scheme
+" Languages
+Plugin 'python-mode/python-mode'    " Python
+Plugin 'fatih/vim-go'               " Go
+Plugin 'derekwyatt/vim-scala'       " Scala
+Plugin 'pangloss/vim-javascript'    " JavaScript
+Plugin 'leafgarland/typescript-vim' " TypeScript
+Plugin 'maxmellon/vim-jsx-pretty'   " JSX
+Plugin 'jparise/vim-graphql'        " GraphQL
+Plugin 'neovimhaskell/haskell-vim'  " Haskell
+Plugin 'lepture/vim-jinja'          " Jinja
+
+" Linters and fixers
+"Plugin 'dense-analysis/ale'
+
+" IDE
+Plugin 'scrooloose/nerdtree'            " File browser (F3)
+Plugin 'majutsushi/tagbar'              " Class/module browser (F4)
+Plugin 'jeetsukumaran/vim-buffergator'  " Buffer manager <leader>bl
+Plugin 'bling/vim-airline'              " Fancy status line
+Plugin 'vim-airline/vim-airline-themes' " Pretty status line colors
 Plugin 'altercation/vim-colors-solarized'
-" Git integration
-Plugin 'tpope/vim-fugitive'
-" Show git status in the gutter
-Plugin 'airblade/vim-gitgutter'
-" Syntax highlighing for .pug files
-Plugin 'digitaltoad/vim-pug'
-" Syntax highlighing for .jade files
-Plugin 'digitaltoad/vim-jade'
-" Syntax highlighing for .styl files
-Plugin 'wavded/vim-stylus'
-Plugin 'ervandew/supertab'
-" Surround
-Plugin 'tpope/vim-surround'
+Plugin 'editorconfig/editorconfig-vim'  " Support .editorconfig
+Plugin 'idanarye/vim-vebugger'          " Integrate various debuggers
+
+" Editing tools
+Plugin 'scrooloose/nerdcommenter'   " Code commenter
+Plugin 'tpope/vim-surround'         " Quoting/parenthesizing
 Plugin 'tpope/vim-unimpaired'
-" Automatically detect indentation depth, soft-tabs, etc.
-Plugin 'yaifa.vim'
+Plugin 'yaifa.vim'                  " Auto detect indentation
+"Plugin 'Raimondi/delimitMate'       " Auto close quotes/parentheses
+
+" Search
+Plugin 'mileszs/ack.vim'            " :Ack
+Plugin 'junegunn/fzf'               " Fuzzy finder
+Plugin 'junegunn/fzf.vim'           " FZF helpers (:Ag :Rg :Lines etc.)
+Plugin 'haya14busa/incsearch.vim'   " Incremental search
+
+" Git
+Plugin 'tpope/vim-fugitive'
+Plugin 'airblade/vim-gitgutter'
+
+" Auto completion
+Plugin 'ycm-core/YouCompleteMe'     " LSP auto completion engine
+"Plugin 'ervandew/supertab'
 " Autocompletion on steroids
 "Plugin 'Shougo/neocomplete'
-Plugin 'davidhalter/jedi-vim'
-" Haskell
-Plugin 'neovimhaskell/haskell-vim'
-Plugin 'Raimondi/delimitMate'
-" Incremental search
-Plugin 'haya14busa/incsearch.vim'
+"Plugin 'davidhalter/jedi-vim'
+
 " VIM motions on speed
 Plugin 'easymotion/vim-easymotion'
 Plugin 'haya14busa/incsearch-easymotion.vim'
+
 " UltiSnips
 "Plugin 'sirver/ultisnips'
 " VIM snippets
 Plugin 'honza/vim-snippets'
-" fzf
-Plugin 'junegunn/fzf'
-Plugin 'junegunn/fzf.vim'
-" vim-scala
-Plugin 'derekwyatt/vim-scala'
 " vim-autoformat
 Plugin 'Chiel92/vim-autoformat'
-" vim-jinja
-Plugin 'lepture/vim-jinja'
-" editorconfig
-Plugin 'editorconfig/editorconfig-vim'
-" vebugger
-Plugin 'idanarye/vim-vebugger'
-" vim-go
-Plugin 'fatih/vim-go'
+
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -97,8 +82,8 @@ set cinoptions=>s,e0,n0,f1s,{1s,}0,^0,L-1,:s,=s,l0,b0,gs,hs,ps,ts,is,+s,c3,C0,/0
 set backspace=indent,eol,start
 
 " tab length exceptions on some file types
-autocmd FileType html setlocal shiftwidth=2 tabstop=2 softtabstop=2
-autocmd FileType javascript setlocal shiftwidth=2 tabstop=2 softtabstop=2
+"autocmd FileType html setlocal shiftwidth=2 tabstop=2 softtabstop=2
+"autocmd FileType javascript setlocal shiftwidth=2 tabstop=2 softtabstop=2
 
 " Force .md files to be interpreted as markdown instead of Modula-2
 autocmd BufNewFile,BufReadPost *.md set filetype=markdown
@@ -314,6 +299,10 @@ let g:ctrlp_custom_ignore = {
 \ }
 
 
+" GitGutter
+highlight! link SignColumn LineNr
+let g:gitgutter_set_sign_backgrounds = 1
+
 
 " Buffergator ------------------------------
 
@@ -329,32 +318,19 @@ nmap <leader>kk :BuffergatorMruCycleNext<cr>
 " View the entire list of buffers open
 nmap <leader>bl :BuffergatorOpen<cr>
 
-" Syntastic ------------------------------
-
-" show list of errors and warnings on the current file
-"nmap <leader>e :Errors<CR>
-"" check also when just opened the file
-"let g:syntastic_check_on_open=0
-"let g:syntastic_check_on_wq = 1
-"let g:syntastic_mode_map = {
-"\ "mode": "active",
-"\ "active_filetypes": [],
-"\ "passive_filetypes": ["python"] }
-"let g:syntastic_enable_signs=1
-"let g:syntastic_error_symbol='✘'
-"let g:syntastic_warning_symbol='≫'
-"let g:syntastic_enable_highlighting=1
-"let g:syntastic_python_pylint_args='--max-line-length=100 --disable=C0103,C0111'
-"let g:syntastic_quiet_messages = { "type": "style" }
-"let g:syntastic_cpp_checkers = []
-"
-
+" ------------------------------------------
 " ALE (async lint engine) ------------------
+" ------------------------------------------
+"  Error/Warning signs
 let g:ale_sign_error = '✘'
 let g:ale_sign_warning = '≫'
+highlight! link ALEErrorSign GitGutterDelete
+highlight! link ALEWarningSign GitGutterChange
+
 let g:airline#extensions#ale#enabled = 1
-"nmap <silent> <C-k> <Plug>(ale_previous_wrap)
-"nmap <silent> <C-j> <Plug>(ale_next_wrap)
+let g:ale_fix_on_save = 1
+nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+nmap <silent> <C-j> <Plug>(ale_next_wrap)
 
 
 " Python-mode ------------------------------
@@ -365,8 +341,9 @@ let g:pymode_lint_on_write = 0
 let g:pymode_lint_signs = 0
 " don't fold python code on open
 let g:pymode_folding = 0
-" don't load rope by default. Change to 1 to use rope
+" Load rope by default. Change to 0 to disable rope
 let g:pymode_rope = 1
+let g:pymode_rope_completion = 0  " disable rope completion
 " open definitions on same window, and custom mappings for definitions and
 " occurrences
 let g:pymode_rope_goto_definition_bind = ',d'
@@ -566,9 +543,6 @@ imap <c-x><c-k> <plug>(fzf-complete-word)
 imap <c-x><c-f> <plug>(fzf-complete-path)
 imap <c-x><c-j> <plug>(fzf-complete-file-ag)
 imap <c-x><c-l> <plug>(fzf-complete-line)
-
-" Jump to ctag
-nnoremap <leader>g :call fzf#vim#tags(expand('<cword>'), {'options': '--exact --select-1 --exit-0'})<CR>
 
 " Auto Format
 noremap <F5> :Autoformat<CR>
