@@ -1,9 +1,6 @@
 [submodule "bundle/Vundle.vim"]
 	path = bundle/Vundle.vim
 	url = git@github.com:gmarik/Vundle.vim.git
-[submodule "dircolors-solarized"]
-	path = dircolors-solarized
-	url = git@github.com:seebi/dircolors-solarized.git
 [submodule "powerline_fonts"]
 	path = powerline_fonts
 	url = git@github.com:powerline/fonts.git

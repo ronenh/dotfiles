@@ -17,11 +17,19 @@
 	autocrlf = input
 	excludesfile = ~/.gitignore
 	editor = nvim
+	pager = delta
+
+[interactive]
+    diffFilter = delta --color-only
 
 [diff]
 	renames = copies
 	mnemonicprefix = true
 	renameLimit = 10000
+	colorMoved = default
+
+[delta]
+	navigate = true
 
 [alias]
 	br = branch
