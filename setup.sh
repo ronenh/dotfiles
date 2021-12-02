@@ -3,7 +3,7 @@
 SCRIPT_DIR=$(cd $(dirname "$0"); pwd)
 DOTFILES="ackrc vimrc zshrc gitconfig fzf_funcs.zsh"
 HOMEBREW_INSTALLER=https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh
-HOMEBREW_FORMULAE="vim antigen ctags fzf pyenv pyenv-virtualenv"
+HOMEBREW_FORMULAE="vim antigen ctags fzf pyenv pyenv-virtualenv autojump"
 
 # Create symbolic links
 for dotfile in $DOTFILES; do

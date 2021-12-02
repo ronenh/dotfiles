@@ -1,76 +1,82 @@
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-
-" let Vundle manage Vundle, required
-Plugin 'gmarik/Vundle.vim'
+call plug#begin('~/.vim/plugged')
 
 " Languages
-Plugin 'python-mode/python-mode'    " Python
-Plugin 'fatih/vim-go'               " Go
-Plugin 'derekwyatt/vim-scala'       " Scala
-Plugin 'pangloss/vim-javascript'    " JavaScript
-Plugin 'leafgarland/typescript-vim' " TypeScript
-Plugin 'maxmellon/vim-jsx-pretty'   " JSX
-Plugin 'jparise/vim-graphql'        " GraphQL
-Plugin 'neovimhaskell/haskell-vim'  " Haskell
-Plugin 'lepture/vim-jinja'          " Jinja
+Plug 'python-mode/python-mode'    " Python
+Plug 'fatih/vim-go'               " Go
+Plug 'derekwyatt/vim-scala'       " Scala
+Plug 'pangloss/vim-javascript'    " JavaScript
+Plug 'leafgarland/typescript-vim' " TypeScript
+Plug 'maxmellon/vim-jsx-pretty'   " JSX
+Plug 'jparise/vim-graphql'        " GraphQL
+Plug 'neovimhaskell/haskell-vim'  " Haskell
+Plug 'lepture/vim-jinja'          " Jinja
+Plug 'hashivim/vim-terraform'     " Terraform
+Plug 'dag/vim-fish'               " Fish shell
 
 " Linters and fixers
-"Plugin 'dense-analysis/ale'
+Plug 'dense-analysis/ale'
+let g:ale_disable_lsp = 1  " Use CoC for all LSP features
+
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'neoclide/coc-json', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-prettier', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-eslint', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-snippets', {'do': 'yarn install --frozen-lockfile'}
+Plug 'fannheyward/coc-pyright', {'do': 'yarn install --frozen-lockfile'}
+Plug 'josa42/coc-go', {'do': 'yarn install --frozen-lockfile'}
 
 " IDE
-Plugin 'scrooloose/nerdtree'            " File browser (F3)
-Plugin 'majutsushi/tagbar'              " Class/module browser (F4)
-Plugin 'jeetsukumaran/vim-buffergator'  " Buffer manager <leader>bl
-Plugin 'bling/vim-airline'              " Fancy status line
-Plugin 'vim-airline/vim-airline-themes' " Pretty status line colors
-Plugin 'altercation/vim-colors-solarized'
-Plugin 'editorconfig/editorconfig-vim'  " Support .editorconfig
-Plugin 'idanarye/vim-vebugger'          " Integrate various debuggers
+Plug 'scrooloose/nerdtree'            " File browser (F3)
+Plug 'majutsushi/tagbar'              " Class/module browser (F4)
+Plug 'jeetsukumaran/vim-buffergator'  " Buffer manager <leader>bl
+Plug 'bling/vim-airline'              " Fancy status line
+Plug 'vim-airline/vim-airline-themes' " Pretty status line colors
+Plug 'altercation/vim-colors-solarized'
+Plug 'editorconfig/editorconfig-vim'  " Support .editorconfig
+Plug 'idanarye/vim-vebugger'          " Integrate various debuggers
 
 " Editing tools
-Plugin 'scrooloose/nerdcommenter'   " Code commenter
-Plugin 'tpope/vim-surround'         " Quoting/parenthesizing
-Plugin 'tpope/vim-unimpaired'
-Plugin 'yaifa.vim'                  " Auto detect indentation
-"Plugin 'Raimondi/delimitMate'       " Auto close quotes/parentheses
+Plug 'scrooloose/nerdcommenter'   " Code commenter
+"Plug 'tpope/vim-surround'         " Quoting/parenthesizing
+"Plug 'tpope/vim-unimpaired'
+Plug 'vim-scripts/yaifa.vim'       " Auto detect indentation
+Plug 'godlygeek/tabular'           " Align text
+Plug 'Raimondi/delimitMate'        " Auto close quotes/parentheses
 
 " Search
-Plugin 'mileszs/ack.vim'            " :Ack
-Plugin 'junegunn/fzf'               " Fuzzy finder
-Plugin 'junegunn/fzf.vim'           " FZF helpers (:Ag :Rg :Lines etc.)
-Plugin 'haya14busa/incsearch.vim'   " Incremental search
+Plug 'mileszs/ack.vim'            " :Ack
+Plug 'junegunn/fzf'               " Fuzzy finder
+Plug 'junegunn/fzf.vim'           " FZF helpers (:Ag :Rg :Lines etc.)
+Plug 'haya14busa/incsearch.vim'   " Incremental search
 
 " Git
-Plugin 'tpope/vim-fugitive'
-Plugin 'airblade/vim-gitgutter'
+Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
 
 " Auto completion
-Plugin 'ycm-core/YouCompleteMe'     " LSP auto completion engine
-"Plugin 'ervandew/supertab'
+"Plug 'ycm-core/YouCompleteMe', { 'do': './install.py' }     " LSP auto completion engine
+"Plug 'ervandew/supertab'
 " Autocompletion on steroids
-"Plugin 'Shougo/neocomplete'
-"Plugin 'davidhalter/jedi-vim'
+"Plug 'Shougo/neocomplete'
+"Plug 'davidhalter/jedi-vim'
 
 " VIM motions on speed
-Plugin 'easymotion/vim-easymotion'
-Plugin 'haya14busa/incsearch-easymotion.vim'
+Plug 'easymotion/vim-easymotion'
+Plug 'haya14busa/incsearch-easymotion.vim'
 
-" UltiSnips
-"Plugin 'sirver/ultisnips'
-" VIM snippets
-Plugin 'honza/vim-snippets'
+" Snippets
+"Plug 'sirver/ultisnips'
+"Plug 'honza/vim-snippets'
+
 " vim-autoformat
-Plugin 'Chiel92/vim-autoformat'
+Plug 'Chiel92/vim-autoformat'
 
-
-" All of your Plugins must be added before the following line
-call vundle#end()            " required
-filetype plugin indent on    " required
+call plug#end()
+" End plugin setup
 
 
 " tabs and spaces
@@ -80,10 +86,6 @@ set softtabstop=4
 set shiftwidth=4
 set cinoptions=>s,e0,n0,f1s,{1s,}0,^0,L-1,:s,=s,l0,b0,gs,hs,ps,ts,is,+s,c3,C0,/0,(2s,us,U0,w0,W0,m0,j0,J0,)20,*70,#j0
 set backspace=indent,eol,start
-
-" tab length exceptions on some file types
-"autocmd FileType html setlocal shiftwidth=2 tabstop=2 softtabstop=2
-"autocmd FileType javascript setlocal shiftwidth=2 tabstop=2 softtabstop=2
 
 " Force .md files to be interpreted as markdown instead of Modula-2
 autocmd BufNewFile,BufReadPost *.md set filetype=markdown
@@ -105,13 +107,6 @@ au BufNewFile,BufRead *.cppml,*.hppml set filetype=cpp
 " show line numbers
 set number
 
-" Comment this line to enable autocompletion preview window
-" (displays documentation related to the selected completion option)
-" Disabled by default because preview makes the window flicker
-set completeopt-=preview
-
-
-set t_Co=256
 set background=dark
 colorscheme solarized
 
@@ -124,6 +119,12 @@ set mouse=a
 " Auto completion of VIM commands
 set wildmenu
 set wildmode=full
+
+" Change cursor shape between insert and normal mode in iTerm2.app
+if $TERM_PROGRAM =~ "iTerm"
+    let &t_SI = "\<Esc>]50;CursorShape=1\x7" " Vertical bar in insert mode
+    let &t_EI = "\<Esc>]50;CursorShape=0\x7" " Block in normal mode
+endif
 
 " better backup, swap and undos storage
 set directory=~/.vim/dirs/tmp     " directory to place swap files in
@@ -141,13 +142,13 @@ let g:yankring_history_dir = '~/.vim/dirs/'
 
 " create needed directories if they don't exist
 if !isdirectory(&backupdir)
-    call mkdir(&backupdir, "p")
+  call mkdir(&backupdir, "p")
 endif
 if !isdirectory(&directory)
-    call mkdir(&directory, "p")
+  call mkdir(&directory, "p")
 endif
 if !isdirectory(&undodir)
-    call mkdir(&undodir, "p")
+  call mkdir(&undodir, "p")
 endif
 
 " Set to auto read when a file is changed from the outside
@@ -161,7 +162,6 @@ let g:mapleader = ","
 
 " show hard tabs, trailing whitespace, etc
 set listchars=tab:\¬\ ,trail:~,extends:»,precedes:»
-set invlist
 set list
 nmap <silent> <leader>s :set nolist!<CR>
 
@@ -181,6 +181,159 @@ nnoremap <C-y> 3<C-y>
 set hidden
 set laststatus=2
 
+" Moving lines and blocks
+nnoremap <silent> [e :m -2<CR>==
+nnoremap <silent> ]e :m +1<CR>==
+vnoremap <silent> [e :m '<-2<CR>gv=gv
+vnoremap <silent> ]e :m '>+1<CR>gv=gv
+
+" CoC stuff
+"""""""""""""""""""""""""""""""
+" More room for error messages
+set cmdheight=2
+
+" Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
+" delays and poor user experience.
+set updatetime=300
+
+" Don't pass messages to |ins-completion-menu|.
+set shortmess+=c
+
+" Always show the sign column
+set signcolumn=yes
+
+" Use tab for trigger completion with characters ahead and navigate.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+
+" Use <c-space> to trigger completion.
+if has('nvim')
+  inoremap <silent><expr> <c-space> coc#refresh()
+else
+  inoremap <silent><expr> <c-@> coc#refresh()
+endif
+
+" Make <CR> auto-select the first completion item and notify coc.nvim to
+" format on enter, <cr> could be remapped by other vim plugin
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
+      \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+" Use `[g` and `]g` to navigate diagnostics
+" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" GoTo code navigation.
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Use K to show documentation in preview window.
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  elseif (coc#rpc#ready())
+    call CocActionAsync('doHover')
+  else
+    execute '!' . &keywordprg . " " . expand('<cword>')
+  endif
+endfunction
+
+" Highlight the symbol and its references when holding the cursor.
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" Symbol renaming.
+nmap <leader>rn <Plug>(coc-rename)
+
+" Formatting selected code.
+xmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
+
+augroup mygroup
+  autocmd!
+  " Setup formatexpr specified filetype(s).
+  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+  " Update signature help on jump placeholder.
+  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+augroup end
+
+" Applying codeAction to the selected region.
+" Example: `<leader>aap` for current paragraph
+xmap <leader>a  <Plug>(coc-codeaction-selected)
+nmap <leader>a  <Plug>(coc-codeaction-selected)
+
+" Remap keys for applying codeAction to the current buffer.
+nmap <leader>ac  <Plug>(coc-codeaction)
+" Apply AutoFix to problem on the current line.
+nmap <leader>qf  <Plug>(coc-fix-current)
+
+" Map function and class text objects
+" NOTE: Requires 'textDocument.documentSymbol' support from the language server.
+xmap if <Plug>(coc-funcobj-i)
+omap if <Plug>(coc-funcobj-i)
+xmap af <Plug>(coc-funcobj-a)
+omap af <Plug>(coc-funcobj-a)
+xmap ic <Plug>(coc-classobj-i)
+omap ic <Plug>(coc-classobj-i)
+xmap ac <Plug>(coc-classobj-a)
+omap ac <Plug>(coc-classobj-a)
+
+" Remap <C-f> and <C-b> for scroll float windows/popups.
+if has('nvim-0.4.0') || has('patch-8.2.0750')
+  nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+  nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+  inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
+  inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
+  vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+  vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+endif
+
+" Use CTRL-S for selections ranges.
+" Requires 'textDocument/selectionRange' support of language server.
+nmap <silent> <C-s> <Plug>(coc-range-select)
+xmap <silent> <C-s> <Plug>(coc-range-select)
+
+" Add `:Format` command to format current buffer.
+command! -nargs=0 Format :call CocAction('format')
+
+" Add `:Fold` command to fold current buffer.
+command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+
+" Add `:OR` command for organize imports of the current buffer.
+command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
+
+" Mappings for CoCList
+" Show all diagnostics.
+nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
+" Manage extensions.
+nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
+" Show commands.
+nnoremap <silent><nowait> <space>c  :<C-u>CocList commands<cr>
+" Find symbol of current document.
+nnoremap <silent><nowait> <space>o  :<C-u>CocList outline<cr>
+" Search workspace symbols.
+nnoremap <silent><nowait> <space>s  :<C-u>CocList -I symbols<cr>
+" Do default action for next item.
+nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
+" Do default action for previous item.
+nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
+" Resume latest coc list.
+nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
+
+
 " Relative line numbers
 """""""""""""""""""""""
 set number
@@ -198,8 +351,8 @@ endfunc
 nnoremap <C-n> :call NumberToggle()<cr>
 
 " Switch to absolute line number when vim loses focus
-:au FocusLost * :set number
-:au FocusGained * :set norelativenumber
+:au FocusLost * :set norelativenumber
+:au FocusGained * :set relativenumber
 
 " Switch to absolute line numbers in edit mode
 autocmd InsertEnter * :set norelativenumber
@@ -208,30 +361,30 @@ autocmd InsertLeave * :set relativenumber
 
 " Toggle Quickfix and Location lists
 function! GetBufferList()
-redir =>buflist
-silent! ls!
-redir END
-return buflist
+  redir =>buflist
+  silent! ls!
+  redir END
+  return buflist
 endfunction
 
 function! ToggleList(bufname, pfx)
-let buflist = GetBufferList()
-for bufnum in map(filter(split(buflist, '\n'), 'v:val =~ "'.a:bufname.'"'), 'str2nr(matchstr(v:val, "\\d\\+"))')
-if bufwinnr(bufnum) != -1
-    exec(a:pfx.'close')
-    return
-endif
-endfor
-if a:pfx == 'l' && len(getloclist(0)) == 0
+  let buflist = GetBufferList()
+  for bufnum in map(filter(split(buflist, '\n'), 'v:val =~ "'.a:bufname.'"'), 'str2nr(matchstr(v:val, "\\d\\+"))')
+    if bufwinnr(bufnum) != -1
+      exec(a:pfx.'close')
+      return
+    endif
+  endfor
+  if a:pfx == 'l' && len(getloclist(0)) == 0
     echohl ErrorMsg
     echo "Location List is Empty."
     return
-endif
-let winnr = winnr()
-exec(a:pfx.'open')
-if winnr() != winnr
-wincmd p
-endif
+  endif
+  let winnr = winnr()
+  exec(a:pfx.'open')
+  if winnr() != winnr
+    wincmd p
+  endif
 endfunction
 
 nmap <silent> <leader>l :call ToggleList("Location List", 'l')<CR>
@@ -257,47 +410,6 @@ map <F4> :TagbarToggle<CR>
 " autofocus on tagbar open
 let g:tagbar_autofocus = 1
 "let g:tagbar_left = 1
-
-" CtrlP ------------------------------
-
-nmap <leader>bb :CtrlPBuffer<cr>
-nmap <leader>bm :CtrlPMixed<cr>
-nmap <leader>bs :CtrlPMRU<cr>
-
-" tags (symbols) in current file finder mapping
-nmap <leader>tg :CtrlPBufTag<CR>
-" tags (symbols) in all files finder mapping
-nmap <leader>tG :CtrlPBufTagAll<CR>
-" general code finder in all files mapping
-nmap <leader>f :CtrlPLine<CR>
-" recent files finder mapping
-nmap <leader>m :CtrlPMRUFiles<CR>
-" commands finder mapping
-nmap <leader>c :CtrlPCmdPalette<CR>
-" to be able to call CtrlP with default search text
-function! CtrlPWithSearchText(search_text, ctrlp_command_end)
-execute ':CtrlP' . a:ctrlp_command_end
-call feedkeys(a:search_text)
-endfunction
-" same as previous mappings, but calling with current word as default text
-nmap <leader>wg :call CtrlPWithSearchText(expand('<cword>'), 'BufTag')<CR>
-nmap <leader>wG :call CtrlPWithSearchText(expand('<cword>'), 'BufTagAll')<CR>
-nmap <leader>wf :call CtrlPWithSearchText(expand('<cword>'), 'Line')<CR>
-nmap <leader>we :call CtrlPWithSearchText(expand('<cword>'), '')<CR>
-nmap <leader>pe :call CtrlPWithSearchText(expand('<cfile>'), '')<CR>
-nmap <leader>wm :call CtrlPWithSearchText(expand('<cword>'), 'MRUFiles')<CR>
-nmap <leader>wc :call CtrlPWithSearchText(expand('<cword>'), 'CmdPalette')<CR>
-
-" Show .hidden files
-let g:ctrlp_show_hidden = 1
-" Use the nearest .git directory as the cwd
-let g:ctrlp_working_path_mode = 'r'
-" ignore these files and folders on file finder
-let g:ctrlp_custom_ignore = {
-\ 'dir':  '\v[\/](\.git|\.hg|\.svn|\.build|_site)$',
-\ 'file': '\.pyc$\|\.pyo$|\.log$'
-\ }
-
 
 " GitGutter
 highlight! link SignColumn LineNr
@@ -356,7 +468,12 @@ let g:pymode_options_max_line_length = 99
 " Auto activate virtualenv
 let g:pymode_virtualenv = 1
 
-"autocmd FileType python set omnifunc=pythoncomplete#Complete
+" vim-go
+nmap <silent> <F9> :GoDebugBreakpoint<CR>
+let g:go_highlight_functions = 1
+let g:go_highlight_function_calls = 1
+let g:go_highlight_fields = 1
+
 
 " NERDTree -----------------------------
 
@@ -374,109 +491,30 @@ let NERDTreeIgnore = ['\.pyc$', '\.pyo$']
 let g:airline_powerline_fonts = 1
 let g:airline_theme = 'solarized'
 let g:airline#extensions#tabline#enabled = 1
-call airline#parts#define_minwidth('branch', 80)
-call airline#parts#define_minwidth('whitespace', 100)
-call airline#parts#define_minwidth('hunks', 100)
-call airline#parts#define_minwidth('whitespace', 120)
-call airline#parts#define_minwidth('filetype', 140)
-call airline#parts#define_minwidth('ffenc', 140)
-call airline#parts#define_minwidth('tagbar', 180)
+"call airline#parts#define_minwidth('branch', 80)
+"call airline#parts#define_minwidth('whitespace', 100)
+"call airline#parts#define_minwidth('hunks', 100)
+"call airline#parts#define_minwidth('whitespace', 120)
+"call airline#parts#define_minwidth('filetype', 140)
+"call airline#parts#define_minwidth('ffenc', 140)
+"call airline#parts#define_minwidth('tagbar', 180)
 
 
 
 " Custom functions
 function! ToggleHeader(file)
-if (a:file:e[0] == "c")
-let prefix = "h"
-elseif (a:file:e[0] == "h")
-let prefix = "c"
-else 
-return
-:e %<.prefix+a:file:e[1:]
-endfunc
-
-
-" Colors and highlighting
-"hi! DiffChange NONE
-"hi! DiffText ctermbg=3
-"hi! DiffAdd ctermbg=2
-"hi! DiffDelete ctermbg=0
-"hi! SpellCap cterm=undercurl ctermbg=NONE
-"hi! SpellBad cterm=undercurl ctermbg=NONE
-
-" NeoComplete options
-"let g:acp_enableAtStartup = 0
-"" Use neocomplete.
-"let g:neocomplete#enable_at_startup = 1
-"" Use smartcase.
-"let g:neocomplete#enable_smart_case = 1
-"" Set minimum syntax keyword length.
-"let g:neocomplete#sources#syntax#min_keyword_length = 3
-
-"" Define dictionary.
-"let g:neocomplete#sources#dictionary#dictionaries = {
-    "\ 'default' : '',
-    "\ 'vimshell' : $HOME.'/.vimshell_hist',
-    "\ 'scheme' : $HOME.'/.gosh_completions'
-        "\ }
-
-"" Define keyword.
-"if !exists('g:neocomplete#keyword_patterns')
-    "let g:neocomplete#keyword_patterns = {}
-"endif
-"let g:neocomplete#keyword_patterns['default'] = '\h\w*'
-
-"" Plugin key-mappings.
-"inoremap <expr><C-g>     neocomplete#undo_completion()
-"inoremap <expr><C-l>     neocomplete#complete_common_string()
-
-"" Recommended key-mappings.
-"" <CR>: close popup and save indent.
-"inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-"function! s:my_cr_function()
-  "return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
-  "" For no inserting <CR> key.
-  ""return pumvisible() ? "\<C-y>" : "\<CR>"
-"endfunction
-"" <TAB>: completion.
-"inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-"" <C-h>, <BS>: close popup and delete backword char.
-"inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
-"inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
-" Close popup by <Space>.
-"inoremap <expr><Space> pumvisible() ? "\<C-y>" : "\<Space>"
-
-" AutoComplPop like behavior.
-"let g:neocomplete#enable_auto_select = 1
-
-" Shell like behavior(not recommended).
-"set completeopt+=longest
-"let g:neocomplete#enable_auto_select = 1
-"let g:neocomplete#disable_auto_complete = 1
-"inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<C-x>\<C-u>"
-
-" Enable omni completion.
-"autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-"autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-"autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-"autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-"autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-
-"" Enable heavy omni completion.
-"if !exists('g:neocomplete#sources#omni#input_patterns')
-  "let g:neocomplete#sources#omni#input_patterns = {}
-"endif
-""let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-""let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
-""let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
-
-"" For perlomni.vim setting.
-"" https://github.com/c9s/perlomni.vim
-"let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
+  if (a:file:e[0] == "c")
+    let prefix = "h"
+  elseif (a:file:e[0] == "h")
+    let prefix = "c"
+  else
+    return
+    :e %<.prefix+a:file:e[1:]
+  endfunc
 
 
 " IncSearch ------------------------
-"map /  <Plug>(incsearch-forward)
+map /  <Plug>(incsearch-forward)
 map ?  <Plug>(incsearch-backward)
 map g/ <Plug>(incsearch-stay)
 
@@ -532,7 +570,7 @@ let g:fzf_buffers_jump = 1
 
 nmap <C-p> :call fzf#run(fzf#wrap({'source': 'git ls-files --exclude-standard --others --cached'}))<CR>
 nmap <Leader>b :Buffers<CR>
-nmap <Leader>a :Ag --python 
+nmap <Leader>a :Ag --python
 
 nmap <leader><tab> <plug>(fzf-maps-n)
 xmap <leader><tab> <plug>(fzf-maps-x)
@@ -548,3 +586,12 @@ imap <c-x><c-l> <plug>(fzf-complete-line)
 noremap <F5> :Autoformat<CR>
 let g:formatdef_scalafmt = "'scalafmt --stdin'"
 let g:formatters_scala = ['scalafmt']
+
+" UltiSnips
+let g:UltiSnipsListSnippets="<c-l>"
+
+" Terraform
+let g:hcl_align = 1
+
+highlight! link goCustomFuncDef Function
+highlight! link goCustomFunc Function

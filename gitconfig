@@ -2,6 +2,9 @@
 	name = Ronen Hilewicz
 	email = github@ronen.hilewi.cz
 
+[url "git@github.com:aserto-dev"]
+	insteadOf = https://github.com/aserto-dev
+
 [color]
 	status = auto
 	diff = auto
@@ -13,7 +16,7 @@
 	whitespace = trailing-space,space-before-tab
 	autocrlf = input
 	excludesfile = ~/.gitignore
-	editor = vim
+	editor = nvim
 
 [diff]
 	renames = copies
@@ -65,3 +68,7 @@
 	trustExitCode = true
 [rerere]
 	enabled = true
+[init]
+	defaultBranch = main
+[pull]
+	ff = only

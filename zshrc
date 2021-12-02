@@ -307,7 +307,10 @@ fi
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git coffee python cp autojump pip zsh-syntax-highlighting)
+plugins=(git golang python ag autojump pip zsh-syntax-highlighting)
+
+# autojump
+[ -f /usr/local/etc/profile.d/autojump.sh ] && . /usr/local/etc/profile.d/autojump.sh
 
 # vi-mode
 bindkey -v
@@ -439,3 +442,8 @@ compdef _bh_yargs_completions bh
 
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /usr/local/bin/terraform terraform
+
+# GVM Go version manager
+gvm use go1.16.7
+
+source /Users/ronenh/.config/broot/launcher/bash/br
