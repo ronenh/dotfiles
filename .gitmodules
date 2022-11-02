@@ -1,9 +1,6 @@
 [submodule "bundle/Vundle.vim"]
 	path = bundle/Vundle.vim
 	url = git@github.com:gmarik/Vundle.vim.git
-[submodule "powerline_fonts"]
-	path = powerline_fonts
-	url = git@github.com:powerline/fonts.git
 [submodule "zsh-interactive-cd"]
 	path = zsh-interactive-cd
 	url = git@github.com:changyuheng/zsh-interactive-cd.git
