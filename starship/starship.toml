@@ -1,0 +1,100 @@
+[cmd_duration]
+min_time = 500
+format = " [$duration]($style) "
+
+[directory]
+read_only = " "
+truncate_to_repo = false
+
+[status]
+disabled = false
+
+[git_branch]
+symbol = " "
+
+[git_status]
+format = "[$ahead_behind$untracked$modified]($style) "
+
+[username]
+format = "[$user]($style)@"
+
+[aws]
+symbol = "  "
+
+[conda]
+symbol = " "
+
+[dart]
+symbol = " "
+
+[docker_context]
+symbol = " "
+
+[elixir]
+symbol = " "
+
+[elm]
+symbol = " "
+
+[gcloud]
+symbol = "  "
+disabled = true
+
+[golang]
+symbol = " "
+
+[hg_branch]
+symbol = " "
+
+[java]
+symbol = " "
+
+[julia]
+symbol = " "
+
+[kubernetes]
+symbol = "☸ "
+style = "dimmed green"
+disabled = false
+
+[kubernetes.context_aliases]
+# Contexts from GKE carry additional information, like the region/zone.
+# The following entry matches on the GKE format (`gke_projectname_zone_cluster-name`)
+# and renames every matching kube context into a more readable format (`gke-cluster-name`):
+"gke_.*_(?P<cluster>[\\w-]+)" = "$cluster"
+
+[memory_usage]
+symbol = " "
+
+[nim]
+symbol = " "
+
+[nix_shell]
+symbol = " "
+
+[package]
+symbol = " "
+
+[perl]
+symbol = " "
+
+[php]
+symbol = " "
+
+[python]
+symbol = " "
+
+[ruby]
+symbol = " "
+
+[rust]
+symbol = " "
+
+[scala]
+symbol = " "
+
+[shlvl]
+symbol = " "
+
+[swift]
+symbol = "ﯣ "

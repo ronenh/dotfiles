@@ -1,0 +1,113 @@
+[alias]
+	co = checkout
+	ri = rebase -i
+	rc = rebase --continue
+	cp = cherry-pick
+	fp = push --force-with-lease
+	st = status -s -b
+
+	# show recent branches
+	short-recent = "for-each-ref --count=25 --sort=-committerdate refs/heads/ --format='%(refname:short)'"
+
+	# fuzzy switch branch...  /fish/functions/fco.fish seems better
+	fco = "!git short-recent | fzf --print0 | xargs -0 -t git checkout"
+
+	commit = commit -s
+	commend = commit -s --amend --no-edit
+
+	g = grep --break --heading --line-number
+	gi = grep --break --heading --line-number -i
+
+	count = shortlog -sn
+	changed = show --pretty=\"format:\" --name-only
+	fm = fetch-merge
+
+	l = log --oneline --decorate --graph
+	lt = log --tags --decorate --simplify-by-decoration --oneline
+	timeline = log --graph --branches --pretty=oneline --decorate
+
+	ignored-files = ls-files --others -i --exclude-standard
+	modified-files = ls-files -m
+	untracked-files = ls-files -o --exclude-standard
+
+[color]
+	diff = auto
+	status = auto
+	branch = auto
+	interactive = auto
+	ui = true
+
+[core]
+	excludesfile = ~/.gitignore
+	editor = nvim
+	pager = delta
+	compression = -1
+	autocrlf = input
+	whitespace = trailing-space,space-before-tab
+	precomposeunicode = true
+
+[apply]
+	whitespace = nowarn
+
+[help]
+	autocorrect = 1
+
+[diff]
+	tool = diffmerge
+	renames = copies
+	mnemonicprefix = true
+	renameLimit = 10000
+	colorMoved = default
+
+[grep]
+	extendRegexp = true
+	lineNumber = true
+
+[push]
+	default = simple
+	autoSetupRemote = true
+
+[submodule]
+	fetchJobs = 4
+
+[log]
+	showSignature = false
+
+[pull]
+    ff = only
+
+[init]
+    defaultBranch = main
+
+
+[format]
+	signOff = true
+
+[interactive]
+	diffFilter = delta --color-only
+
+[delta]
+	navigate = true
+	syntax-theme = Dracula
+	line-numbers = true
+	decorations = true
+
+[merge]
+	tool = fugitive
+
+[mergetool "fugitive"]
+	cmd = vim -f -c "Gdiff" "$MERGED"
+
+[rebase]
+	autosquash = true
+
+[rerere]
+	enabled = true
+
+[init]
+	defaultBranch = main
+[pull]
+	ff = only
+
+[url "git@github.com:aserto-dev"]
+	insteadOf = https://github.com/aserto-dev
