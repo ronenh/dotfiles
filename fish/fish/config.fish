@@ -20,3 +20,6 @@ set PATH $PATH /Users/ronenhilewicz/.local/bin
 ### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
 set --export --prepend PATH "/Users/ronenhilewicz/.rd/bin"
 ### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/ronenhilewicz/google-cloud-sdk/path.fish.inc' ]; . '/Users/ronenhilewicz/google-cloud-sdk/path.fish.inc'; end

@@ -30,6 +30,9 @@
 	modified-files = ls-files -m
 	untracked-files = ls-files -o --exclude-standard
 
+[tag]
+	sort = -committerdate
+
 [color]
 	diff = auto
 	status = auto
@@ -87,8 +90,8 @@
 	diffFilter = delta --color-only
 
 [delta]
+	syntax-theme = Coldark-Dark
 	navigate = true
-	syntax-theme = Dracula
 	line-numbers = true
 	decorations = true
 

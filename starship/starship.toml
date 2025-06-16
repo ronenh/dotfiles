@@ -57,11 +57,12 @@ symbol = "☸ "
 style = "dimmed green"
 disabled = false
 
-[kubernetes.context_aliases]
+[[kubernetes.contexts]]
 # Contexts from GKE carry additional information, like the region/zone.
 # The following entry matches on the GKE format (`gke_projectname_zone_cluster-name`)
 # and renames every matching kube context into a more readable format (`gke-cluster-name`):
-"gke_.*_(?P<cluster>[\\w-]+)" = "$cluster"
+context_pattern = "gke_.*_(?P<cluster>[\\w-]+)"
+context_alias = "$cluster"
 
 [memory_usage]
 symbol = " "

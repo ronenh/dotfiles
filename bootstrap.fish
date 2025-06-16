@@ -1,6 +1,6 @@
 #!/usr/bin/env fish
 #
-# bootstrap installs things.
+# bootstrap installs everything.
 
 set DOTFILES_ROOT (pwd -P)
 
@@ -96,35 +96,7 @@ function install_dotfiles
 		stow -R -t ~/.config (basename $package) --ignore install\.fish --ignore '.*\.symlink' --ignore '\.DS_Store'
 			and success (basename $package)
 	end
-
-	# link_file $DOTFILES_ROOT/fisher/plugins $__fish_config_dir/fish_plugins backup
-	#     or abort plugins
-	# link_file $DOTFILES_ROOT/bat/config $HOME/.config/bat/config backup
-	#     or abort bat
-	# link_file $DOTFILES_ROOT/htop/htoprc $HOME/.config/htop/htoprc backup
-	#     or abort htoprc
-	# link_file $DOTFILES_ROOT/ssh/config.dotfiles $HOME/.ssh/config.dotfiles backup
-	#     or abort ssh
-	# link_file $DOTFILES_ROOT/kitty/kitty.conf $HOME/.config/kitty/kitty.conf backup
-	#     or abort kitty
-	# link_file $DOTFILES_ROOT/nvim/init.vim  $HOME/.config/nvim/init.vim backup
-	#     or abort nvim
-	# link_file $DOTFILES_ROOT/fish/config.fish $HOME/.config/fish/config.fish backup
-	#     or abort fish
-	# link_file $DOTFILES_ROOT/fish/dracula.theme $HOME/.config/fish/themes/dracula.theme backup
-	#     or abort fish
-	# link_file $DOTFILES_ROOT/vifm/vifmrc $HOME/.config/vifm/vifmrc backup
-	#     or abort fish
-	# link_file $DOTFILES_ROOT/lvim $HOME/.config/lvim
-	#     or abort fish
-	# link_file $DOTFILES_ROOT/lsd/config.yaml $HOME/.config/lsd/config.yaml backup
-	#     or abort fish
-
 end
-
-# curl -sL git.io/fisher | source && fisher install jorgebucaran/fisher
-#     and success 'fisher'
-#     or abort 'fisher'
 
 setup_gitconfig
 	and success 'gitconfig'
