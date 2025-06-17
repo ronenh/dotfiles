@@ -3,7 +3,7 @@ return {
 	'vzze/cmdline.nvim',
 	event = "VeryLazy",
 	config = function()
-		require("cmdline") {
+		require("cmdline").setup({
 			window = {
 				matchFuzzy = true,
 				offset     = 1, -- depending on 'cmdheight' you might need to offset
@@ -26,6 +26,6 @@ return {
 				next = "<Tab>",
 				back = "<S-Tab>"
 			}
-		}
+		})
 	end,
 }
