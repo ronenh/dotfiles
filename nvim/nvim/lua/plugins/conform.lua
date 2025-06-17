@@ -19,7 +19,7 @@ return {
 		format_on_save = { timeout_ms = 500, lsp_fallback = true },
 	},
 	init = function()
-		local utils = require('user.utils')
+		local utils = require('config.utils')
 
 		vim.o.formatexpr = 'v:lua.require"conform".formatexpr()'
 
