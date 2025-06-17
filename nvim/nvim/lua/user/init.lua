@@ -1,19 +1,18 @@
-require("user.options")
--- vim.cmd.source("~/.config/nvim/initrc.vim")
-require("user.keymaps")
-require("user.autocmds")
-
+require('user.options')
+require('user.autocmds')
+require('user.keymaps')
+require('user.lsp')
 
 -- Lazy.nvim setup: clone the repo if it doesn't exist.
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
-	local lazyrepo = "https://github.com/folke/lazy.nvim.git"
-	local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
+	local lazyrepo = 'https://github.com/folke/lazy.nvim.git'
+	local out = vim.fn.system({ 'git', 'clone', '--filter=blob:none', '--branch=stable', lazyrepo, lazypath })
 	if vim.v.shell_error ~= 0 then
 		vim.api.nvim_echo({
-			{ "Failed to clone lazy.nvim:\n", "ErrorMsg" },
-			{ out,                            "WarningMsg" },
-			{ "\nPress any key to exit..." },
+			{ 'Failed to clone lazy.nvim:\n', 'ErrorMsg' },
+			{ out,                            'WarningMsg' },
+			{ '\nPress any key to exit...' },
 		}, true, {})
 		vim.fn.getchar()
 		os.exit(1)
@@ -28,4 +27,4 @@ require('lazy').setup(
 	}
 )
 
-vim.cmd("colorscheme rose-pine")
+vim.cmd('colorscheme rose-pine')

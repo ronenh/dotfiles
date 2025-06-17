@@ -29,6 +29,11 @@ return {
 				end,
 				desc = 'Find fuzzy match in current buffer'
 			},
+			{ 'gd',         lazy_telescope('lsp_definitions'),       desc = 'Go to definition' },
+			{ 'gr',         lazy_telescope('lsp_references'),        desc = 'Go to references' },
+			{ 'gy',         lazy_telescope('lsp_type_definitions'),  desc = 'Go to type definition' },
+			{ '<leader>fs', lazy_telescope('lsp_document_symbols'),  desc = 'Find document symbols' },
+			{ '<leader>fS', lazy_telescope('lsp_workspace_symbols'), desc = 'Find workspace symbols' },
 		}
 	end,
 	opts = function()

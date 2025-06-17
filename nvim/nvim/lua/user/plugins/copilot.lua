@@ -10,5 +10,4 @@ return {
 			})
 		end,
 	},
-	{ "zbirenbaum/copilot-cmp", opts = {} },
 }
