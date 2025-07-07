@@ -4,26 +4,27 @@ confidence = 0.8
 errorCode = 0
 warningCode = 0
 
-[rule.blank-imports]
-[rule.context-as-argument]
-[rule.context-keys-type]
-[rule.dot-imports]
-[rule.empty-block]
-[rule.error-naming]
-[rule.error-return]
-[rule.error-strings]
-[rule.errorf]
-# [rule.exported]
-[rule.increment-decrement]
-[rule.indent-error-flow]
+# Enable all available rules by default
+enableAllRules = true
+
+# Rules configuration
+[rule.add-constant]
+arguments = [
+  { maxLitCount = "3", allowStrs = "\"\"", allowInts = "0" },
+]
+# Tests often contain magic numbers.
+Exclude = ["TEST"]  # Same as "**/*_test.go"
+
+[rule.line-length-limit]
+arguments = [150]
+
+[rule.max-public-structs]
+arguments = [8]
+
+
+# Disable specific rules
+[rule.exported]
+Disabled = true
+
 [rule.package-comments]
-[rule.range]
-[rule.receiver-naming]
-[rule.redefines-builtin-id]
-[rule.superfluous-else]
-[rule.time-naming]
-[rule.unexported-return]
-[rule.unreachable-code]
-[rule.unused-parameter]
-[rule.var-declaration]
-[rule.var-naming]
+Disabled = true

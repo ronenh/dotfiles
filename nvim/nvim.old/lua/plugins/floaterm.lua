@@ -1,4 +1,5 @@
 return {
+	-- Use (neo)vim terminal in the floating/popup window.
 	'voldikss/vim-floaterm',
 	keys = {
 		{ '<leader>tt', ':FloatermToggle<CR>', 'Toggle Terminal' },

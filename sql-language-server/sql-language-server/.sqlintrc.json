@@ -1,0 +1,14 @@
+{
+	"rules": {
+		"align-column-to-the-first": "error",
+		"column-new-line": "error",
+		"linebreak-after-clause-keyword": "error",
+		"reserved-word-case": [
+			"error",
+			"lower"
+		],
+		"space-surrounding-operators": "error",
+		"where-clause-new-line": "error",
+		"align-where-clause-to-the-first": "error"
+	}
+}

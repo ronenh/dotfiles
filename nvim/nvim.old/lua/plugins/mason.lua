@@ -24,7 +24,6 @@ return {
 				'jsonls',
 				'marksman',
 				'pyright',
-				'sqlls',
 				'tailwindcss',
 				'yamlls',
 			},
