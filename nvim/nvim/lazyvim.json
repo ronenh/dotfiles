@@ -1,6 +1,8 @@
 {
   "extras": [
     "lazyvim.plugins.extras.ai.copilot",
+    "lazyvim.plugins.extras.editor.mini-move",
+    "lazyvim.plugins.extras.editor.neo-tree",
     "lazyvim.plugins.extras.lang.go"
   ],
   "install_version": 8,
