@@ -1,8 +1,7 @@
 return {
   {
-    -- 'ray-x/go.nvim',
     "ray-x/go.nvim",
-    -- branch = 'golangci-lint-v2',
+    branch = "treesitter-main",
     dependencies = { -- optional packages
       "ray-x/guihua.lua",
       "nvim-treesitter/nvim-treesitter",
@@ -16,50 +15,48 @@ return {
       icons = { breakpoint = "🛑", currentpos = "" },
       lsp_gofumpt = true,
     },
+    keys = {
+      { "<leader>ctf", ":GoTestFunc<CR>", desc = "Run test function", ft = "go" },
+      { "<leader>ctF", ":GoTestFunc<CR>", desc = "Run all tests in file", ft = "go" },
+    },
     event = { "CmdlineEnter" },
     ft = { "go", "gomod" },
     build = ':lua require("go.install").update_all_sync()', -- if you need to install/update all binaries
   },
-  {
-    "neovim/nvim-lspconfig",
-    opts = {
-      servers = {
-        gopls = {
-          settings = {
-            gopls = {
-              hints = {
-                assignVariableTypes = true,
-                compositeLiteralFields = true,
-                compositeLiteralTypes = true,
-                constantValues = true,
-                functionTypeParameters = true,
-                parameterNames = false,
-                rangeVariableTypes = true,
-              },
-            },
-          },
-        },
-      },
-      setup = {
-        gopls = function(_, opts)
-          -- workaround for gopls not supporting semanticTokensProvider
-          -- https://github.com/golang/go/issues/54531#issuecomment-1464982242
-          LazyVim.lsp.on_attach(function(client, _)
-            if not client.server_capabilities.semanticTokensProvider then
-              local semantic = client.config.capabilities.textDocument.semanticTokens
-              client.server_capabilities.semanticTokensProvider = {
-                full = true,
-                legend = {
-                  tokenTypes = semantic.tokenTypes,
-                  tokenModifiers = semantic.tokenModifiers,
-                },
-                range = true,
-              }
-            end
-          end, "gopls")
-          -- end workaround
-        end,
-      },
-    },
-  },
+  -- {
+  --   "neovim/nvim-lspconfig",
+  --   opts = {
+  --     servers = {
+  --       gopls = {
+  --         settings = {
+  --           gopls = {
+  --             buildFlags = { "-tags=integration" },
+  --             workspaceFiles = {
+  --               "**/BUILD",
+  --               "**/WORKSPACE",
+  --               "**/*.{bzl,bazel}",
+  --             },
+  --             env = {
+  --               GOPACKAGESDRIVER = "./scripts/gopackagesdriver.sh",
+  --             },
+  --             directoryFilters = {
+  --               "-",
+  --               "+cmd",
+  --               "+pkg",
+  --             },
+  --             hints = {
+  --               assignVariableTypes = true,
+  --               compositeLiteralFields = true,
+  --               compositeLiteralTypes = true,
+  --               constantValues = true,
+  --               functionTypeParameters = true,
+  --               parameterNames = false,
+  --               rangeVariableTypes = true,
+  --             },
+  --           },
+  --         },
+  --       },
+  --     },
+  --   },
+  -- },
 }

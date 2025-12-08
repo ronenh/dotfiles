@@ -4,7 +4,7 @@ set -Ux VISUAL $EDITOR
 set -Ux WEDITOR code
 
 set -Ux DOTFILES ~/.dotfiles
-set -Ux PROJECTS ~/Developer
+set -Ux PROJECTS ~/poolsideai
 
 set -Ua fish_user_paths $DOTFILES/bin $HOME/.bin
 
@@ -17,5 +17,5 @@ set -Ua fish_user_paths $DOTFILES/bin $HOME/.bin
 # end
 
 if test -f ~/.localrc.fish
-	ln -sf ~/.localrc.fish ~/.config/fish/conf.d/localrc.fish
+    ln -sf ~/.localrc.fish ~/.config/fish/conf.d/localrc.fish
 end

@@ -13,4 +13,13 @@ return {
       hint = "floating-big-letter",
     },
   },
+  {
+    "sourcegraph/amp.nvim",
+    branch = "main",
+    lazy = false,
+    opts = { auto_start = true, log_level = "info" },
+  },
+  {
+    "jjo/vim-cue",
+  },
 }

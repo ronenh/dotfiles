@@ -5,6 +5,9 @@
 	cp = cherry-pick
 	fp = push --force-with-lease
 	st = status -s -b
+	wt = worktree
+	wta = worktree add
+	wtl = worktree list
 
 	# show recent branches
 	short-recent = "for-each-ref --count=25 --sort=-committerdate refs/heads/ --format='%(refname:short)'"
@@ -112,5 +115,5 @@
 [pull]
 	ff = only
 
-[url "git@github.com:aserto-dev"]
-	insteadOf = https://github.com/aserto-dev
+[url "git@github.com:poolsideai"]
+	insteadOf = https://github.com/poolsideai
