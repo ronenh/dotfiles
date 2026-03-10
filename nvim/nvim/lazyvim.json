@@ -1,10 +1,18 @@
 {
   "extras": [
+    "lazyvim.plugins.extras.ai.claudecode",
     "lazyvim.plugins.extras.ai.copilot",
+    "lazyvim.plugins.extras.coding.mini-surround",
+    "lazyvim.plugins.extras.dap.core",
     "lazyvim.plugins.extras.editor.mini-move",
     "lazyvim.plugins.extras.editor.neo-tree",
     "lazyvim.plugins.extras.lang.go",
-    "lazyvim.plugins.extras.lang.helm"
+    "lazyvim.plugins.extras.lang.helm",
+    "lazyvim.plugins.extras.lang.json",
+    "lazyvim.plugins.extras.lang.markdown",
+    "lazyvim.plugins.extras.lang.svelte",
+    "lazyvim.plugins.extras.lang.toml",
+    "lazyvim.plugins.extras.test.core"
   ],
   "install_version": 8,
   "news": {
