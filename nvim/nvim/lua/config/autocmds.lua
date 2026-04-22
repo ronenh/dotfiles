@@ -16,3 +16,10 @@ vim.api.nvim_create_autocmd("FileType", {
     })
   end,
 })
+
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "fugitive",
+  callback = function()
+    vim.cmd("resize 25")
+  end,
+})
