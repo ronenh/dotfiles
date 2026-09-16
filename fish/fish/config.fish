@@ -8,3 +8,5 @@ fish_add_path ~/.local/bin
 
 # Generated for envman. Do not edit.
 test -s ~/.config/envman/load.fish; and source ~/.config/envman/load.fish
+~/.local/bin/mise activate fish | source
+
