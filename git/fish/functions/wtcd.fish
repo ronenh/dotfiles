@@ -1,8 +1,11 @@
 function wtcd -d "Jump to one of this repo's worktrees (fzf)"
     set -l target
     if test (count $argv) -gt 0
-        set -l root (__wt_root); or return 1
-        set target "$root/"(string replace -a / - $argv[1])
+        set target (__wt_path_for $argv[1])
+        or begin
+            echo "wtcd: no worktree matching '$argv[1]'" >&2
+            return 1
+        end
     else
         set target (__wt_pick "worktree>")
     end

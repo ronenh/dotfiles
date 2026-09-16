@@ -9,7 +9,11 @@ function wtrm -d "Remove a worktree and delete its branch"
 
     set -l dir
     if test (count $argv) -gt 0
-        set dir "$root/"(string replace -a / - $argv[1])
+        set dir (__wt_path_for $argv[1])
+        or begin
+            echo "wtrm: no worktree matching '$argv[1]'" >&2
+            return 1
+        end
     else
         set dir (__wt_pick "remove worktree>")
     end
