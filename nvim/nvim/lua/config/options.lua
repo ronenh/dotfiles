@@ -4,3 +4,6 @@
 
 -- enable per-project .nvim.lua files
 vim.o.exrc = true
+
+vim.o.guifont = "Hack Nerd Font Mono:h14"
+
