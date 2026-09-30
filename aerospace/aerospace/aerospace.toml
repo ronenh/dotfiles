@@ -100,14 +100,15 @@ key-mapping.preset = 'qwerty'
 #                 Monitor pattern is the same as for 'workspace-to-monitor-force-assignment'.
 #                 See:
 #                 https://nikitabobko.github.io/AeroSpace/guide#assign-workspaces-to-monitors
-gaps.inner.horizontal = 5
-gaps.inner.vertical = 0
-gaps.outer.left = 5
-gaps.outer.bottom = 0
-gaps.outer.top = 0
+gaps.inner.horizontal = 12
+gaps.inner.vertical = 12
+gaps.outer.left = 24
+gaps.outer.bottom = 24
+gaps.outer.top = 24
 gaps.outer.right = [
-	{ monitor.main = 100 }, # primary display
-	# { monitor.main = 365 }, # primary display
+	# { monitor.main = 24 }, # primary display
+	# { monitor.main = 100 }, # primary display
+	{ monitor.main = 365 }, # primary display
 	5,
 ]
 
@@ -115,7 +116,13 @@ gaps.outer.right = [
 # See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
 # 'main' binding mode must be always presented
 # Fallback value (if you omit the key): mode.main.binding = {}
+[workspace-to-monitor-force-assignment]
+C = 'built-in'
+
 [mode.main.binding]
+
+# Temporarily expand the focused window; press again to restore its layout.
+alt-ctrl-f = 'fullscreen'
 
 # All possible keys:
 # - Letters.        a, b, c, ..., z
@@ -235,6 +242,12 @@ alt-shift-semicolon = 'mode service'
 
 alt-r = 'mode resize'
 
+# Arrange Slack, WhatsApp, Messages, and Mail on workspace S.
+alt-ctrl-s = 'exec-and-forget /bin/bash "$HOME/.config/aerospace/messaging-layout.sh" S >>"${TMPDIR:-/tmp/}aerospace-messaging-layout.log" 2>&1'
+
+# Arrange Calendar and Zoom Workplace on workspace C (built-in display).
+alt-ctrl-c = 'exec-and-forget /bin/bash "$HOME/.config/aerospace/calendar-zoom-layout.sh" >>"${TMPDIR:-/tmp/}aerospace-calendar-zoom-layout.log" 2>&1'
+
 # 'service' binding mode declaration.
 # See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
 [mode.service.binding]
@@ -261,3 +274,7 @@ k = 'resize smart +50'
 l = 'resize smart +50'
 enter = 'mode main'    # Exit back to main mode
 esc = 'mode main'      # Exit back to main mode
+
+[[on-window-detected]]
+if.app-id = 'com.apple.Music'
+run = 'layout floating'
