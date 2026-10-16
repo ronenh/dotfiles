@@ -106,6 +106,7 @@ gaps.outer.left = 24
 gaps.outer.bottom = 24
 gaps.outer.top = 24
 gaps.outer.right = [
+	{ monitor."built-in" = 5 }, # laptop display, even when primary
 	# { monitor.main = 24 }, # primary display
 	# { monitor.main = 100 }, # primary display
 	{ monitor.main = 365 }, # primary display
