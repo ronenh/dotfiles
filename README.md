@@ -4,7 +4,8 @@ Fish shell, neovim, kitty and friends, managed with [stow](https://www.gnu.org/s
 
 ## New machine
 
-One command on a fresh Mac:
+Sign in to iCloud and the App Store first: `mas` installs App Store apps
+(WhatsApp) and needs the sign-in. Then one command on a fresh Mac:
 
 ```sh
 curl -fsSL https://raw.githubusercontent.com/ronenh/dotfiles/master/setup.sh | sh
@@ -23,7 +24,7 @@ Or, if the repo is already cloned, from its root:
 
 Do these by hand after it finishes:
 
-1. Sign in to iCloud and 1Password.
+1. Sign in to 1Password.
 2. Copy `~/.secrets` (sourced by fish) and `~/.ssh/id_ed25519*` from 1Password
    or the old machine, then `git remote set-url origin git@github.com:ronenh/dotfiles.git`.
 3. Run `./set-macos-defaults.sh` and log out.

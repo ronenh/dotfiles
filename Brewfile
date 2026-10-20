@@ -200,12 +200,19 @@ cask "obsidian"
 # cask "synologyassistant"
 # Web browser focusing on security
 cask "tor-browser"
-# Native desktop client for WhatsApp
-cask "whatsapp"
 # AI-powered voice dictation
 cask "wispr-flow"
 # Video communication and virtual meeting platform
 cask "zoom"
+
+# ---------------------------------------------------------------------------
+# Mac App Store apps. These are owned by the system and cannot be installed
+# or adopted as casks. `mas` needs you to be signed in to the App Store.
+# Find an id with `mas search <name>`.
+# ---------------------------------------------------------------------------
+# Mac App Store command-line interface
+brew "mas"
+mas "WhatsApp", id: 310633997
 
 # ---------------------------------------------------------------------------
 # Fonts (kitty and the neovim GUI use Maple Mono NF)

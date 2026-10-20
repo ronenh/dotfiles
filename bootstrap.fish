@@ -36,7 +36,18 @@ function install_brewfile
 		info "brew not found, skipping Brewfile (run ./setup.sh to install Homebrew)"
 		return 0
 	end
-	brew bundle --file=$DOTFILES_ROOT/Brewfile --no-upgrade
+	# Fast path: nothing to do when every Brewfile entry is already installed.
+	if brew bundle check --file=$DOTFILES_ROOT/Brewfile --no-upgrade >/dev/null 2>&1
+		info "Brewfile already satisfied"
+		return 0
+	end
+	# brew bundle prints one line per entry while it checks the Brewfile, then
+	# goes quiet while it downloads and installs everything that was missing.
+	# --verbose keeps the download progress visible so it does not look hung,
+	# and shows the password prompt for the few casks (zoom) that use a pkg
+	# installer and need sudo.
+	info "installing missing Brewfile entries, this can take a while"
+	brew bundle --file=$DOTFILES_ROOT/Brewfile --no-upgrade --verbose
 end
 
 function setup_gitconfig
