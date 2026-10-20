@@ -1,6 +1,10 @@
 #!/usr/bin/env fish
 #
 # bootstrap installs everything.
+#
+# On a brand-new Mac run ./setup.sh instead: it installs Homebrew and the
+# Brewfile (which provides fish and stow) and then runs this script.
+# After that, re-run this script whenever the repo changes.
 
 set DOTFILES_ROOT (pwd -P)
 
@@ -23,8 +27,16 @@ end
 
 function on_exit -p %self
 	if not contains $argv[3] 0
-		echo [(set_color --bold red) FAIL (set_color normal)] "Couldn't setup dotfiles, please open an issue at https://github.com/caarlos0/dotfiles"
+		echo [(set_color --bold red) FAIL (set_color normal)] "Couldn't setup dotfiles, please open an issue at https://github.com/ronenh/dotfiles"
 	end
+end
+
+function install_brewfile
+	if not command -q brew
+		info "brew not found, skipping Brewfile (run ./setup.sh to install Homebrew)"
+		return 0
+	end
+	brew bundle --file=$DOTFILES_ROOT/Brewfile --no-upgrade
 end
 
 function setup_gitconfig
@@ -44,7 +56,7 @@ function setup_gitconfig
 		git config --global user.name $user_name
 			and git config --global user.email $user_email
 			or abort 'failed to setup git user name and email'
-	else if test '$managed' = "true"
+	else if test "$managed" != true
 		# if user.email exists, let's check for dotfiles.managed config. If it is
 		# not true, we'll backup the gitconfig file and set previous user.email and
 		# user.name in the new one
@@ -98,6 +110,22 @@ function install_dotfiles
 	end
 end
 
+function install_fisher
+	# fisher is itself a fish function that only exists once fisher has been
+	# installed, so bootstrap it from the network the first time.
+	if not functions -q fisher
+		info "installing fisher"
+		curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source
+			and fisher install jorgebucaran/fisher
+			or abort 'failed to install fisher'
+	end
+	fisher update
+end
+
+install_brewfile
+	and success 'brewfile'
+	or abort 'brewfile'
+
 setup_gitconfig
 	and success 'gitconfig'
 	or abort 'gitconfig'
@@ -106,7 +134,7 @@ install_dotfiles
 	and success 'dotfiles'
 	or abort 'dotfiles'
 
-fisher update
+install_fisher
 	and success 'plugins'
 	or abort 'plugins'
 

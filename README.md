@@ -1,43 +1,58 @@
-# Fish shell and neovim config
+# dotfiles
 
-## Installation
+Fish shell, neovim, kitty and friends, managed with [stow](https://www.gnu.org/software/stow/).
 
-### Dependencies
+## New machine
 
-First, make sure you have all those things installed:
+One command on a fresh Mac:
 
-- `git`: to clone the repo
-- `curl`: to download some stuff
-- `fish`: the shell
-- `stow`: to manage symlinks
+```sh
+curl -fsSL https://raw.githubusercontent.com/ronenh/dotfiles/master/setup.sh | sh
+```
 
-### Install/Update
+Or, if the repo is already cloned, from its root:
+
+```sh
+./setup.sh
+```
+
+`setup.sh` installs the Xcode Command Line Tools, Homebrew and everything in
+[`Brewfile`](Brewfile), then runs `bootstrap.fish`.
+
+### Things `setup.sh` cannot do
+
+Do these by hand after it finishes:
+
+1. Sign in to iCloud and 1Password.
+2. Copy `~/.secrets` (sourced by fish) and `~/.ssh/id_ed25519*` from 1Password
+   or the old machine, then `git remote set-url origin git@github.com:ronenh/dotfiles.git`.
+3. Run `./set-macos-defaults.sh` and log out.
+4. Install the CLIs that do not come from Homebrew. They all install into `~/.local/bin`:
+   `claude`, `amp`, `webi`.
+5. Sign in to the apps (Slack, Linear, Granola, Tailscale, Docker, ...).
+
+## Update
+
+After pulling changes, or editing `Brewfile`, run:
 
 ```fish
 ./bootstrap.fish
 ```
 
-> All changed files will be backed up with a `.backup` suffix.
+It is idempotent. Changed files are backed up with a `.backup` suffix.
 
-## Additional software
+## Layout
 
+Each top-level directory is a stow package, stowed into `~/.config`:
 
-- [`kitty`](https://sw.kovidgoyal.net/kitty/) fast configurable shell.
-- [`bat`](https://github.com/sharkdp/bat) a `cat` with wings;
-- [`delta`](https://github.com/dandavison/delta) for better git diffs;
-- [`dog`](https://dns.lookup.dog) the command-line DNS client;
-- [`lsd`](https://github.com/lsd-rs/lsd) a modern replacement for `ls`;
-- [`fd`](https://github.com/sharkdp/fd) a simple, fast and user-friendly alternative to `find`;
-- [`fzf`](https://github.com/junegunn/fzf) for a fuzzy-finder, used in `,t` on vim, for example;
-- [`gh`](https://github.com/cli/cli) for more GitHub integration with the terminal;
-- [`grc`](https://github.com/garabik/grc) to colorize command's outputs;
-- [`starship.rs`](https://starship.rs) the shell we are using;
-- [`kubectx`](https://github.com/ahmetb/kubectx) for better Kubernetes context and namespace switch;
-- [`ripgrep`](https://github.com/BurntSushi/ripgrep) a faster `grep`;
-- [`zoxide`](https://github.com/ajeetdsouza/zoxide) a smarter `cd` command;
+- `<pkg>/<pkg>/...` lands in `~/.config/<pkg>/...`
+- `<pkg>/fish/conf.d/*.fish` and `<pkg>/fish/functions/*.fish` land in the fish config
+- `<pkg>/*.symlink` is linked to `~/.<name>` instead
+- `<pkg>/install.fish` runs on every bootstrap
 
-To install them all with `brew`:
+Package managers:
 
-```fish
-brew install fish stow kitty bat git-delta dog lsd fd fzf gh grc kubectx ripgrep starship zoxide
-```
+- `Brewfile`: Homebrew formulae, casks, fonts, VS Code extensions, uv tools and npm globals.
+  Refresh it with `brew bundle dump --force --file=/tmp/Brewfile` and diff.
+- `uv` (from Homebrew): Python interpreters, tools and project environments.
+- `fisher/fish/fish_plugins`: fish plugins.

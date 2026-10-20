@@ -3,18 +3,17 @@ set -Ux EDITOR nvim
 set -Ux VISUAL $EDITOR
 set -Ux WEDITOR code
 
-set -Ux DOTFILES ~/.dotfiles
-set -Ux PROJECTS ~/poolsideai
+# bootstrap.fish runs every install.fish from the repo root.
+set -Ux DOTFILES (pwd -P)
+set -Ux PROJECTS ~/
 
-set -Ua fish_user_paths $DOTFILES/bin $HOME/.bin
-
-# for f in $DOTFILES/*/functions
-#     set -Up fish_function_path $f
-# end
-
-# for f in $DOTFILES/*/conf.d/*.fish
-#     ln -sf $f ~/.config/fish/conf.d/(basename $f)
-# end
+# Drop PATH entries left behind by tools that are no longer installed
+# (pyenv, opencode, ~/.dotfiles/bin, ...).
+set -l kept
+for p in $fish_user_paths
+    test -d $p; and set -a kept $p
+end
+set -U fish_user_paths $kept
 
 if test -f ~/.localrc.fish
     ln -sf ~/.localrc.fish ~/.config/fish/conf.d/localrc.fish
