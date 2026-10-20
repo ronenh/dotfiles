@@ -1,4 +1,0 @@
-builds:
-- skip: true
-changelog:
-  use: github

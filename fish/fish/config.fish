@@ -1,6 +1,3 @@
-# Machine-local secrets, never in the repo.
-test -f ~/.secrets; and source ~/.secrets
-
 # Avoid the AeroSpace fullscreen shortcut on Ctrl+Alt+F.
 if status is-interactive
     set -g fzf_fd_opts --type d

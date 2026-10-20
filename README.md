@@ -25,12 +25,14 @@ Or, if the repo is already cloned, from its root:
 Do these by hand after it finishes:
 
 1. Sign in to 1Password.
-2. Copy `~/.secrets` (sourced by fish) and `~/.ssh/id_ed25519*` from 1Password
-   or the old machine, then `git remote set-url origin git@github.com:ronenh/dotfiles.git`.
-3. Run `./set-macos-defaults.sh` and log out.
-4. Install the CLIs that do not come from Homebrew. They all install into `~/.local/bin`:
+2. Create an SSH key for this machine with `ssh-keygen -t ed25519`, add it to
+   GitHub (`pubkey` copies it), then
+   `git remote set-url origin git@github.com:ronenh/dotfiles.git`.
+   Keys are per machine and are never copied between them. Secrets come
+   from 1Password (`op`) or the keychain (`security`), not from files.
+3. Install the CLIs that do not come from Homebrew. They all install into `~/.local/bin`:
    `claude`, `amp`, `webi`.
-5. Sign in to the apps (Slack, Linear, Granola, Tailscale, Docker, ...).
+4. Sign in to the apps (Slack, Linear, Granola, Tailscale, Docker, ...).
 
 ## Update
 
@@ -54,6 +56,6 @@ Each top-level directory is a stow package, stowed into `~/.config`:
 Package managers:
 
 - `Brewfile`: Homebrew formulae, casks, fonts, VS Code extensions, uv tools and npm globals.
-  Refresh it with `brew bundle dump --force --file=/tmp/Brewfile` and diff.
+  `brewdiff` shows what is installed on this machine but missing from it, and the reverse.
 - `uv` (from Homebrew): Python interpreters, tools and project environments.
 - `fisher/fish/fish_plugins`: fish plugins.
