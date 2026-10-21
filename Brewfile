@@ -99,7 +99,7 @@ brew "gh"
 # Database migrations CLI tool
 # brew "golang-migrate"
 # Fast linters runner for Go
-brew "golangci-lint"
+# brew "golangci-lint"
 # Tools for building Bazel targets when source files change
 # brew "ibazel"
 # Graphical front-end for GCC's coverage testing tool (gcov)
@@ -195,7 +195,7 @@ cask "granola"
 # Knowledge base that works on top of a local folder of plain text Markdown files
 cask "obsidian"
 # Team communication and collaboration software
-# cask "slack"
+cask "slack"
 # Tool to manage Synology NAS's across a LAN
 # cask "synologyassistant"
 # Web browser focusing on security
