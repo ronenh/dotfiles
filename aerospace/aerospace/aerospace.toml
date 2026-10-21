@@ -249,6 +249,9 @@ alt-ctrl-s = 'exec-and-forget /bin/bash "$HOME/.config/aerospace/messaging-layou
 # Arrange Calendar and Zoom Workplace on workspace C (built-in display).
 alt-ctrl-c = 'exec-and-forget /bin/bash "$HOME/.config/aerospace/calendar-zoom-layout.sh" >>"${TMPDIR:-/tmp/}aerospace-calendar-zoom-layout.log" 2>&1'
 
+# Toggle the main monitor's outer right gap between 365 and 5.
+alt-ctrl-g = 'exec-and-forget /bin/bash "$HOME/.config/aerospace/toggle-main-gap.sh" >>"${TMPDIR:-/tmp/}aerospace-toggle-main-gap.log" 2>&1'
+
 # 'service' binding mode declaration.
 # See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
 [mode.service.binding]
