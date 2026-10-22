@@ -1,6 +1,6 @@
 # Avoid the AeroSpace fullscreen shortcut on Ctrl+Alt+F.
 if status is-interactive
-    set -g fzf_fd_opts --type d
+    # set -g fzf_fd_opts --type d
     fzf_configure_bindings --directory=ctrl-alt-d
 end
 

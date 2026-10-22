@@ -56,6 +56,8 @@ brew "ripgrep"
 brew "sevenzip"
 # Display directories as trees (with optional color/HTML output)
 brew "tree"
+# Themes for the LS_COLORS environment variable
+brew "vivid"
 # Blazing fast terminal file manager written in Rust, based on async I/O
 brew "yazi"
 # Process YAML, JSON, XML, CSV and properties documents from the CLI
@@ -257,15 +259,15 @@ vscode "vscodevim.vim"
 # ---------------------------------------------------------------------------
 # uv tools (installed with `uv tool install`)
 # ---------------------------------------------------------------------------
-uv "batrachian-toad"
-uv "harbor"
-uv "keyring", with: ["keyrings-codeartifact"]
-uv "pre-commit"
+# uv "batrachian-toad"
+# uv "harbor"
+# uv "keyring", with: ["keyrings-codeartifact"]
+# uv "pre-commit"
 
 # ---------------------------------------------------------------------------
 # npm globals
 # ---------------------------------------------------------------------------
-npm "@agentclientprotocol/claude-agent-acp"
-npm "@anthropic-ai/dxt"
-npm "mintlify"
-npm "skills"
+# npm "@agentclientprotocol/claude-agent-acp"
+# npm "@anthropic-ai/dxt"
+# npm "mintlify"
+# npm "skills"

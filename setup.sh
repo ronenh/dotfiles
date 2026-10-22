@@ -88,7 +88,7 @@ cd "$DOTFILES_DIR"
 
 info "installing Brewfile (this takes a while the first time)"
 # zoom's pkg installer will ask for your password when it gets there.
-brew bundle --file="$DOTFILES_DIR/Brewfile" --no-upgrade --verbose || abort "brew bundle failed"
+arch -arm64 brew bundle --file="$DOTFILES_DIR/Brewfile" --no-upgrade --verbose || abort "brew bundle failed"
 success "Brewfile installed"
 
 # --- 5. Hand off to fish ---------------------------------------------------

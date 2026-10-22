@@ -8,7 +8,7 @@ config-version = 2
 after-startup-command = []
 
 # Start AeroSpace at login
-start-at-login = false
+start-at-login = true
 
 # Automatically reload the config when the config file is saved
 # After setting this to true, reload once manually to start the auto-reloading
@@ -109,7 +109,7 @@ gaps.outer.right = [
 	{ monitor."built-in" = 5 }, # laptop display, even when primary
 	# { monitor.main = 24 }, # primary display
 	# { monitor.main = 100 }, # primary display
-	{ monitor.main = 365 }, # primary display
+	{ monitor.main = 5 }, # primary display
 	5,
 ]
 

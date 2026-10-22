@@ -1,0 +1,52 @@
+colors:
+  # Kanagawa Palette Definitions
+  fujiWhite: "DCD7BA"   # Main foreground text
+  oldWhite: "C8C093"    # Muted foreground / Text files
+  sumiInk1: "1F1F28"    # Background
+  sumiInk3: "54546D"    # Muted Gray / Comments / Ignored files
+  crystalBlue: "7E9CD8" # Folders / Directories
+  springGreen: "98BB6C" # Executables
+  waveAqua1: "6A9589"   # Symlinks
+  carpYellow: "E6C384" # Archives / Compressed
+  waveRed: "E46876"    # Errors / Broken links / FIFO
+  roninYellow: "FF9E3B" # Device files
+  oniViolet: "957FB8"   # Images / Media
+
+core:
+  # Core file system types
+  normal: { foreground: fujiWhite }
+  file: { foreground: oldWhite }
+  directory: { foreground: crystalBlue, font-style: bold }
+  symlink: { foreground: waveAqua1 }
+  multi_hardlink: { foreground: waveAqua1, font-style: underline }
+  executable: { foreground: springGreen, font-style: bold }
+
+  # Block and character devices
+  block_device: { foreground: roninYellow, font-style: bold }
+  char_device: { foreground: roninYellow, font-style: bold }
+  fifo: { foreground: waveRed }
+  socket: { foreground: oniViolet, font-style: bold }
+  door: { foreground: oniViolet, font-style: bold }
+
+  # File status alerts
+  broken_symlink: { foreground: waveRed, font-style: underline }
+  missing_symlink_target: { foreground: waveRed, font-style: underline }
+
+  # Permission flags
+  setuid: { foreground: sumiInk1, background: waveRed, font-style: bold }
+  setgid: { foreground: sumiInk1, background: carpYellow, font-style: bold }
+  sticky: { foreground: sumiInk1, background: crystalBlue, font-style: bold }
+  other_writable: { foreground: sumiInk1, background: springGreen }
+  sticky_other_writable: { foreground: sumiInk1, background: springGreen, font-style: bold }
+
+# Functional groupings across file formats
+categories:
+  archive: { foreground: carpYellow }
+  audio: { foreground: oniViolet }
+  image: { foreground: oniViolet }
+  video: { foreground: oniViolet }
+  temp: { foreground: sumiInk3 }
+  programming: { foreground: oldWhite }
+  build: { foreground: waveAqua1 }
+  document: { foreground: fujiWhite }
+  unimportant: { foreground: sumiInk3 }
