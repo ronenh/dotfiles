@@ -143,7 +143,7 @@ brew "kubectx"
 # Easiest, most secure way to use WireGuard and 2FA
 # brew "tailscale", restart_service: :changed
 # Anonymizing overlay network for TCP
-brew "tor", restart_service: :changed
+# brew "tor", restart_service: :changed
 
 # ---------------------------------------------------------------------------
 # Casks: terminals, editors, window management
@@ -169,7 +169,7 @@ cask "visual-studio-code"
 # App to manage software development and track bugs
 # cask "linear"
 # Reverse proxy, secure introspectable tunnels to localhost
-cask "ngrok"
+# cask "ngrok"
 # Run large language models locally
 # cask "ollama-app"
 # Mesh VPN based on WireGuard
@@ -189,7 +189,7 @@ cask "chatgpt"
 # Anthropic's official Claude AI desktop app
 cask "claude"
 # Bitcoin thin client
-cask "electrum"
+# cask "electrum"
 # Web browser
 cask "firefox@developer-edition"
 # AI notepad for meetings
@@ -201,7 +201,7 @@ cask "slack"
 # Tool to manage Synology NAS's across a LAN
 # cask "synologyassistant"
 # Web browser focusing on security
-cask "tor-browser"
+# cask "tor-browser"
 # AI-powered voice dictation
 cask "wispr-flow"
 # Video communication and virtual meeting platform
