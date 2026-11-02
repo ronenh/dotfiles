@@ -183,29 +183,29 @@ cask "1password"
 # Command-line interface for 1Password
 cask "1password-cli"
 # Web browser focusing on privacy
-cask "brave-browser"
+# cask "brave-browser"
 # OpenAI's official ChatGPT desktop app
-cask "chatgpt"
+# cask "chatgpt"
 # Anthropic's official Claude AI desktop app
-cask "claude"
+# cask "claude"
 # Bitcoin thin client
 # cask "electrum"
 # Web browser
 cask "firefox@developer-edition"
 # AI notepad for meetings
-cask "granola"
+# cask "granola"
 # Knowledge base that works on top of a local folder of plain text Markdown files
-cask "obsidian"
+# cask "obsidian"
 # Team communication and collaboration software
-cask "slack"
+# cask "slack"
 # Tool to manage Synology NAS's across a LAN
 # cask "synologyassistant"
 # Web browser focusing on security
 # cask "tor-browser"
 # AI-powered voice dictation
-cask "wispr-flow"
+# cask "wispr-flow"
 # Video communication and virtual meeting platform
-cask "zoom"
+# cask "zoom"
 
 # ---------------------------------------------------------------------------
 # Mac App Store apps. These are owned by the system and cannot be installed
@@ -213,8 +213,8 @@ cask "zoom"
 # Find an id with `mas search <name>`.
 # ---------------------------------------------------------------------------
 # Mac App Store command-line interface
-brew "mas"
-mas "WhatsApp", id: 310633997
+# brew "mas"
+# mas "WhatsApp", id: 310633997
 
 # ---------------------------------------------------------------------------
 # Fonts (kitty and the neovim GUI use Maple Mono NF)
