@@ -1,29 +1,39 @@
 colors:
   # Kanagawa Palette Definitions
-  fujiWhite: "DCD7BA"   # Main foreground text
-  oldWhite: "C8C093"    # Muted foreground / Text files
-  sumiInk1: "1F1F28"    # Background
-  sumiInk3: "54546D"    # Muted Gray / Comments / Ignored files
-  crystalBlue: "7E9CD8" # Folders / Directories
-  springGreen: "98BB6C" # Executables
-  waveAqua1: "6A9589"   # Symlinks
-  carpYellow: "E6C384" # Archives / Compressed
-  waveRed: "E46876"    # Errors / Broken links / FIFO
-  roninYellow: "FF9E3B" # Device files
-  oniViolet: "957FB8"   # Images / Media
+  fujiWhite: "DCD7BA"     # Main foreground text
+  oldWhite: "C8C093"      # Muted foreground / Text files
+  sumiInk1: "1F1F28"      # Background
+  sumiInk3: "54546D"      # Muted Gray / Comments / Ignored files
+  crystalBlue: "7E9CD8"   # Folders / Directories
+  springBlue: "7FB4CA"
+  lightBlue: "A3D4D5"
+  dragonBlue: "658594"
+  springGreen: "98BB6C"   # Executables
+  waveAqua1: "6A9589"     # Symlinks
+  waveAqua2: "7AA89F"     # Source code (fallback)
+  carpYellow: "E6C384"    # Archives / Compressed
+  boatYellow2: "C0A36E"
+  roninYellow: "FF9E3B"   # Device files
+  surimiOrange: "FFA066"
+  waveRed: "E46876"       # Errors / Broken links / FIFO
+  peachRed: "FF5D62"
+  sakuraPink: "D27E99"
+  oniViolet: "957FB8"     # Images / Media
+  springViolet1: "938AA9"
 
 core:
   # Core file system types
-  normal: { foreground: fujiWhite }
-  file: { foreground: oldWhite }
+  normal_text: { foreground: fujiWhite }
+  reset_to_normal: { foreground: fujiWhite }
+  regular_file: { foreground: oldWhite }
   directory: { foreground: crystalBlue, font-style: bold }
   symlink: { foreground: waveAqua1 }
-  multi_hardlink: { foreground: waveAqua1, font-style: underline }
-  executable: { foreground: springGreen, font-style: bold }
+  multi_hard_link: { foreground: waveAqua1, font-style: underline }
+  executable_file: { foreground: springGreen, font-style: bold }
 
   # Block and character devices
   block_device: { foreground: roninYellow, font-style: bold }
-  char_device: { foreground: roninYellow, font-style: bold }
+  character_device: { foreground: roninYellow, font-style: bold }
   fifo: { foreground: waveRed }
   socket: { foreground: oniViolet, font-style: bold }
   door: { foreground: oniViolet, font-style: bold }
@@ -35,18 +45,81 @@ core:
   # Permission flags
   setuid: { foreground: sumiInk1, background: waveRed, font-style: bold }
   setgid: { foreground: sumiInk1, background: carpYellow, font-style: bold }
+  file_with_capability: { foreground: sumiInk1, background: oniViolet, font-style: bold }
   sticky: { foreground: sumiInk1, background: crystalBlue, font-style: bold }
   other_writable: { foreground: sumiInk1, background: springGreen }
   sticky_other_writable: { foreground: sumiInk1, background: springGreen, font-style: bold }
 
-# Functional groupings across file formats
-categories:
-  archive: { foreground: carpYellow }
+text:
+  foreground: fujiWhite
+  special: { foreground: oldWhite }
+  todo: { foreground: carpYellow, font-style: bold }
+  licenses: { foreground: carpYellow }
+  configuration:
+    foreground: oldWhite
+    system: { foreground: waveAqua1 }
+
+# Markup and programming are top-level categories in vivid (not under text)
+markup:
+  foreground: boatYellow2
+  web: { foreground: surimiOrange }
+
+programming:
+  foreground: waveAqua2
+  source:
+    foreground: waveAqua2   # any language not listed below
+    shell: { foreground: springGreen }
+    xonsh: { foreground: springGreen }
+    powershell: { foreground: springGreen }
+    python: { foreground: springBlue }
+    ipython: { foreground: springBlue }
+    perl: { foreground: springViolet1 }
+    raku: { foreground: springViolet1 }
+    ruby: { foreground: waveRed }
+    lua: { foreground: crystalBlue }
+    javascript: { foreground: carpYellow }
+    typescript: { foreground: crystalBlue }
+    css: { foreground: sakuraPink }
+    sass: { foreground: sakuraPink }
+    less: { foreground: sakuraPink }
+    cxx: { foreground: dragonBlue }
+    rust: { foreground: surimiOrange }
+    go: { foreground: lightBlue }
+    zig: { foreground: roninYellow }
+    nim: { foreground: boatYellow2 }
+    java: { foreground: peachRed }
+    kotlin: { foreground: oniViolet }
+    scala: { foreground: waveRed }
+    haskell: { foreground: oniViolet }
+    ocaml: { foreground: surimiOrange }
+    sql: { foreground: boatYellow2 }
+    terraform: { foreground: oniViolet }
+    viml: { foreground: springGreen }
+    diff: { foreground: waveRed }
+  tooling:
+    foreground: waveAqua1
+    build:
+      foreground: waveAqua1
+      make: { foreground: waveAqua1, font-style: bold }
+    vcs:
+      foreground: roninYellow
+      git: { foreground: waveRed }
+
+media:
+  foreground: oniViolet
   audio: { foreground: oniViolet }
   image: { foreground: oniViolet }
   video: { foreground: oniViolet }
-  temp: { foreground: sumiInk3 }
-  programming: { foreground: oldWhite }
-  build: { foreground: waveAqua1 }
+  fonts: { foreground: oniViolet }
+
+office:
+  foreground: oldWhite
   document: { foreground: fujiWhite }
-  unimportant: { foreground: sumiInk3 }
+  spreadsheet: { foreground: springGreen }
+  presentation: { foreground: carpYellow }
+
+archives: { foreground: carpYellow }
+
+executable: { foreground: springGreen }
+
+unimportant: { foreground: sumiInk3 }
