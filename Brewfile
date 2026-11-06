@@ -189,7 +189,8 @@ cask "1password-cli"
 # OpenAI's official ChatGPT desktop app
 # cask "chatgpt"
 # Anthropic's official Claude AI desktop app
-# cask "claude"
+cask "claude"
+cask "claude-code"
 # Bitcoin thin client
 # cask "electrum"
 # Web browser
