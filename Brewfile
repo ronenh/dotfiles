@@ -12,6 +12,7 @@
 # ---------------------------------------------------------------------------
 tap "0x1b2c/veil"		# Veil neovim GUI
 tap "nikitabobko/tap"	# aerospace
+tap "pulumi/tap"		# Pulumi
 
 # ---------------------------------------------------------------------------
 # Shell and terminal basics (needed by bootstrap.fish itself)
@@ -110,6 +111,7 @@ brew "gh"
 # brew "libpq"
 # Scalable distributed version control system
 # brew "mercurial"
+brew "pulumi"
 # Generic machine emulator and virtualizer
 brew "qemu"
 # Editor of encrypted files
