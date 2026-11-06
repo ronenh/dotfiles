@@ -198,7 +198,7 @@ cask "firefox@developer-edition"
 # AI notepad for meetings
 # cask "granola"
 # Knowledge base that works on top of a local folder of plain text Markdown files
-# cask "obsidian"
+cask "obsidian"
 # Team communication and collaboration software
 # cask "slack"
 # Tool to manage Synology NAS's across a LAN
