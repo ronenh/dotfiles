@@ -68,9 +68,10 @@ brew "zoxide"
 
 # ---------------------------------------------------------------------------
 # Language runtimes
-# One system-wide version of each. Add a version manager (mise, nvm, ...)
-# only if a project needs pinned versions.
+# One system-wide version of each. Projects that need pinned versions use mise.
 # ---------------------------------------------------------------------------
+# Polyglot runtime manager (asdf rust clone)
+brew "mise"
 # Open source programming language to build simple/reliable/efficient software
 brew "go"
 # Open-source, cross-platform JavaScript runtime environment

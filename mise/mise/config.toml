@@ -1,0 +1,4 @@
+[settings]
+# Trust the mise.toml in every work repo and worktree, without running `mise trust`
+# in each one.
+trusted_config_paths = ["~/apriori"]
